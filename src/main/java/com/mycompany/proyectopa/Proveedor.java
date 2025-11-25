@@ -8,8 +8,33 @@ package com.mycompany.proyectopa;
  *
  * @author dylan
  */
-public class Proveedor {
+public class Proveedor extends Persona{
     private String  nomEmpresa;
-    private String  dirreccion;
+    private String  direccion;
     private String  tipoProducto;
+    
+    public Proveedor(int id, String nombre, int telefono, String correo){
+        super(id,nombre,telefono,correo);
+    }
+    
+    public void setNombreEmpresa(String nomEmpresa){
+        this.nomEmpresa = nomEmpresa;
+    }
+    public void setDireccion(String direccion){
+        this.direccion = direccion;
+    }
+    public void setTipoProducto(String tipoProducto){
+        this.tipoProducto = tipoProducto;
+    }
+    
+    public String getNombreEmpresa(){
+        return nomEmpresa;
+    }
+    public String getDireccion(){
+        return direccion;
+    }
+    public String getTipoProducto(){
+        return tipoProducto;
+    }
+            
 }

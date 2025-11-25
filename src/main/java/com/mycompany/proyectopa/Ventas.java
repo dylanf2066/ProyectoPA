@@ -14,6 +14,6 @@ public class Ventas {
     private String hora;
     private double TotalVenta;
     private int DescuentoAplicado;
-    private double Pagorecibido;
-    private double Pagocambio;
+    private double Pago;
+    private double cambio;
 }

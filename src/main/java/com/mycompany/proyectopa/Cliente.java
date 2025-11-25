@@ -8,9 +8,39 @@ package com.mycompany.proyectopa;
  *
  * @author dylan
  */
-public class Cliente {
+public class Cliente extends Persona{
     private String Direccion;
-    private double montoT;
+    private double totalC;
     private boolean descuentoDispo;
-    private String  fecha;
+    private String  fechaR;
+    
+    public Cliente(int id, String nombre, int telefono, String correo, String Direccion, double totalC,boolean descuentoDispo, String fechaR){
+        super(id,nombre,telefono,correo);
+        this.Direccion = Direccion;
+        this.totalC = totalC;
+        this.descuentoDispo = descuentoDispo;
+        this.fechaR = fechaR;
+    }
+    
+    public void setDireccion(String Direccion){
+        this.Direccion = Direccion;
+    }
+    public void setTotalC(double totalC){
+        this.totalC = totalC;
+    }
+    public void setFechaR(String fechaR){
+        this.fechaR = fechaR;
+    }
+    
+    public String getDireccion(){
+        return Direccion;
+    }
+    
+    public double getTotalC(){
+        return totalC;
+    }
+    
+    public String getFechaR(){
+        return fechaR;
+    }
 }
