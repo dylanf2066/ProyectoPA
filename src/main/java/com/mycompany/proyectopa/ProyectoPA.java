@@ -14,7 +14,7 @@ import java.util.*;
 public class ProyectoPA {
 
     public static void AccionesAdmin(){
-    System.out.println("Soy el admin");
+    System.out.println("Soy el admin loco");
     
     }
     public static void AccionesVendedor(){
