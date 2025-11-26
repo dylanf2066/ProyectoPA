@@ -16,4 +16,22 @@ public class Ventas {
     private int DescuentoAplicado;
     private double Pago;
     private double cambio;
+    
+    public void CalctularTotal(){}
+    public void MostrarResumen(){}
+    public void CalcularDescuento(){}
+    public int getID(){
+        return ID;
+    }
+    public void setPago(Double Pago){
+        this.Pago = Pago;
+    }
+    public double getPago(){
+        return Pago;
+    }
+    public double getCambio(){
+        return cambio;
+    }
+    public void CalcularCambio(){}
+    
 }
