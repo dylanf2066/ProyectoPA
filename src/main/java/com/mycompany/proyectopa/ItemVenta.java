@@ -25,7 +25,7 @@ public class ItemVenta {
     }
     
     public void CalcularSubTotal(){
-         double subtotal;
+         double subtotal=0;
          if(!producto.ActivarOferta())
             subtotal+= producto.getNormalPrecio();
         else
