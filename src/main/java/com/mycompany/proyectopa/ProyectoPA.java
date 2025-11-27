@@ -4,6 +4,7 @@
 
 package com.mycompany.proyectopa;
 import java.util.*;
+import java.time.*;
 /**
  *
  * @author equipo dylan diego
@@ -54,6 +55,7 @@ public class ProyectoPA {
         System.out.println("8- Consultar Proveedor");
         System.out.println("9- Salir");
     }
+    
     //cuando se llama a registrar pruducto debemos pasarle el scanner
     /*public static void RegistrarProducto(Scanner lectorLocal){
         String nom;
@@ -107,6 +109,7 @@ public class ProyectoPA {
            ArrayList<Cliente> Clientes = new ArrayList<>();
            ArrayList<Proveedor> Proveedores = new ArrayList<>();
            ArrayList<Producto> Productos = new ArrayList<>();
+           ArrayList<Ventas> Venta= new ArrayList<>();
            
            Empleados.add(Vendedor);
            
@@ -266,10 +269,19 @@ public class ProyectoPA {
                     switch(opc){
                         case 1:
                             System.out.println("Realizar Venta");
-                            break;
+                            
+                        break;
+                            
                         case 2:
                             System.out.println("Mostrar Ventas realizadas");
-                            break;
+                                if(!Venta.isEmpty()){
+                                    for(Ventas v:Venta){
+                                       v.MostrarResumen();
+                                    }
+                                }else
+                                    System.out.println("No se ha registrado ninguna venta");
+                        break;
+                            
                         case 3:
                             System.out.println("Registrar Productos");
                             break;
@@ -284,6 +296,10 @@ public class ProyectoPA {
                             break;
                         case 7:
                             System.out.println("Consultar Producto");
+                                if(!Productos.isEmpty()){
+                                    for(Producto producto:Productos)
+                                        producto.MostrarInfoProd();
+                                }
                             break;
                         case 8:
                             System.out.println("Consultar Proveedor");
