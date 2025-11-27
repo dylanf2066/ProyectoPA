@@ -97,7 +97,7 @@ public class ProyectoPA {
            
            Empleado Vendedor = new Empleado(789,"Juanito",45612312,"juanito@correo");
            Vendedor.setUsuario("JuanitoPerez");
-           Vendedor.setPassword("contra");
+           Vendedor.setPassword("contrasena");
            Vendedor.setPuesto("Vendedor");
            
            
