@@ -15,7 +15,7 @@ import java.time.*;
 public class ProyectoPA {
 
     public static void AccionesAdmin(Scanner lectorLocal){
-    System.out.println("Soy el admin loco");
+    System.out.println("Soy el admin ");
     
     }
     public static void AccionesVendedor(Scanner lectorLocal){
@@ -98,8 +98,8 @@ public class ProyectoPA {
            
            
            Empleado Vendedor = new Empleado(789,"Juanito",45612312,"juanito@correo");
-           Vendedor.setUsuario("JuanitoPistolas");
-           Vendedor.setPassword("sexo");
+           Vendedor.setUsuario("JuanitoPerez");
+           Vendedor.setPassword("contrasena");
            Vendedor.setPuesto("Vendedor");
            
            
@@ -114,9 +114,10 @@ public class ProyectoPA {
            Empleados.add(Vendedor);
            
            
-           String nameUser, password,nombre,correo,puesto,confpassword;
-           int cont=0, indiceVendedor=0,opc=0,id,tel,opcInt=0;
+           String nameUser, password,nombre,correo,puesto,confpassword,catego;
+           int cont=0, indiceVendedor=0,opc=0,id,tel,opcInt=0,stock,ActOferta=0;
            boolean ExistVendedor=false,ExistNameUser=false,ExistPasswordUser=false,LLamarAdmin=false,LLamarVendedor=false,ExistID=false;
+           double prec,precOFER;
            //do{
             System.out.println("Introduzca su Nombre de Usuario");
             nameUser = leer.nextLine();
@@ -202,17 +203,92 @@ public class ProyectoPA {
                             }while(opcInt!=2);
                             break;
                         case 2:
-                            
-                            System.out.println("Editar Empleado");
+                            if(!Empleados.isEmpty()){
+                                System.out.println("Editar Empleado");
+                            }else{
+                                System.out.println("No hay empleados registrados");
+                            }
                             break;
                         case 3:
+                            if(!Empleados.isEmpty()){
+                                System.out.println("Borrar Empleado");
+                            }else{
+                                System.out.println("No hay empleados registrados");
+                            }
                             System.out.println("Borrar Empleado");
                             break;
                         case 4:
-                            System.out.println("Mostrar Empleados");
+                            if(!Empleados.isEmpty()){
+                                System.out.println("Mostrar Empleados");
+                            }else{
+                                System.out.println("No hay empleados registrados");
+                            }
                             break;
                         case 5:
                             System.out.println("Registrar Productos");
+                            System.out.println("Ingrese el id para el producto: ");
+                            id = leer.nextInt();
+                            leer.nextLine();
+                            ExistID=false;
+                            if(!Productos.isEmpty()){
+                                for(int i=0; i<Productos.size()&&!ExistID;i++){
+                                    if(Productos.get(i).getID()==id){
+                                        ExistID = true;
+                                    }
+                                }
+                            }
+                            if(!ExistID){
+                                System.out.println("Ingresa el nombre del producto:");
+                                nombre = leer.nextLine();
+                                do{
+                                    System.out.println("Ingrese la cantidad para inventario: ");
+                                    stock = leer.nextInt();
+                                    leer.nextLine();
+                                if(stock>0){
+                                    do{
+                                        System.out.println("Ingrese el precio del producto");
+                                        prec=leer.nextDouble();  
+                                        if(prec<0){
+                                            System.out.println("Precio Invalido intente nuevamente:");
+                                        }
+                                    }while(prec<0);        
+                                    System.out.println("Su producto tendra una oferta activa? 1-Si 2-No ");
+                                    ActOferta = leer.nextInt();
+                                    
+                                    if(ActOferta==1){
+                                        do{
+                                            System.out.println("Ingrese el precio para su oferta:");
+                                            precOFER=leer.nextDouble();
+                                            if(precOFER<=0){
+                                                System.out.println("Precio Invalido intente nuevamente:");
+                                            }
+                                        }while(precOFER<=0);
+                                        
+                                        //Dylan acomodale aqui el que guarde la fecha
+                                        
+                                        System.out.println("Ingrese la fecha de inicio de oferta");
+                                        System.out.println("Ingrese la fecha de fin de oferta");
+                                    }else if(ActOferta==2){
+                                        System.out.println("Producto sin oferta activa");
+                                    }else{
+                                        System.out.println("Opcion Invalida");
+                                    }
+                                    
+                                    System.out.println("Ingrese la categoria");
+                                    catego = leer.nextLine();
+                                    //Dylaaaaaaaaaaaaaaaaaan aca le modificas
+                                    System.out.println("Ingresa la fecha de caducidad");
+                                    
+                                    System.out.println("Ingresa la descripcion");
+                                    //leer string
+                                    
+                                }else{
+                                    System.out.println("Cantidad Invalida.\n Intente otra vez");
+                                }   
+                                }while(stock<=0); 
+                            }else{
+                                System.out.println("ID ya en uso");
+                            }
                             break;
                         case 6:
                             System.out.println("Editar Producto");

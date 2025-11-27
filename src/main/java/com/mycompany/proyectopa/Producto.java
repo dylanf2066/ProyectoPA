@@ -11,7 +11,7 @@ import java.time.*;
 public class Producto {
     private int ID;
     private String Nombre;
-    private String Descripcion;
+    private String Descripcion;//
     private double Precio;
     private double PrecioOferta;
     private LocalDate InicioOferta= LocalDate.now();
@@ -19,8 +19,8 @@ public class Producto {
     private int Stock;
     private String Caducidad;
     private String Categoria;
-    private long CodigoBarras;
-    private boolean Activ;
+    private long CodigoBarras;//
+    private boolean Activ;//
     
     
     
