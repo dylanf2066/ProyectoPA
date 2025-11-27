@@ -14,7 +14,7 @@ import java.util.*;
 public class ProyectoPA {
 
     public static void AccionesAdmin(Scanner lectorLocal){
-    System.out.println("Soy el admin loco");
+    System.out.println("Soy el admin ");
     
     }
     public static void AccionesVendedor(Scanner lectorLocal){
@@ -96,8 +96,8 @@ public class ProyectoPA {
            
            
            Empleado Vendedor = new Empleado(789,"Juanito",45612312,"juanito@correo");
-           Vendedor.setUsuario("JuanitoPistolas");
-           Vendedor.setPassword("sexo");
+           Vendedor.setUsuario("JuanitoPerez");
+           Vendedor.setPassword("contra");
            Vendedor.setPuesto("Vendedor");
            
            
@@ -199,14 +199,26 @@ public class ProyectoPA {
                             }while(opcInt!=2);
                             break;
                         case 2:
-                            
-                            System.out.println("Editar Empleado");
+                            if(!Empleados.isEmpty()){
+                                System.out.println("Editar Empleado");
+                            }else{
+                                System.out.println("No hay empleados registrados");
+                            }
                             break;
                         case 3:
+                            if(!Empleados.isEmpty()){
+                                System.out.println("Borrar Empleado");
+                            }else{
+                                System.out.println("No hay empleados registrados");
+                            }
                             System.out.println("Borrar Empleado");
                             break;
                         case 4:
-                            System.out.println("Mostrar Empleados");
+                            if(!Empleados.isEmpty()){
+                                System.out.println("Mostrar Empleados");
+                            }else{
+                                System.out.println("No hay empleados registrados");
+                            }
                             break;
                         case 5:
                             System.out.println("Registrar Productos");
