@@ -359,7 +359,7 @@ public class ProyectoPA {
                         break;
                             
                         case 3:
-                            System.out.println("Registrar Productos");
+                            System.out.println("Registrar Productoss");
                             break;
                         case 4:
                             System.out.println("Editar Productos");
