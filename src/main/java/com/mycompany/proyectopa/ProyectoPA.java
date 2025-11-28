@@ -117,6 +117,7 @@ public class ProyectoPA {
            String nameUser, password,nombre,correo,puesto,confpassword,catego;
            int cont=0, indiceVendedor=0,opc=0,id,tel,opcInt=0,stock,ActOferta=0;
            boolean ExistVendedor=false,ExistNameUser=false,ExistPasswordUser=false,LLamarAdmin=false,LLamarVendedor=false,ExistID=false;
+           boolean ExistClien=false;
            double prec,precOFER;
            //do{
             System.out.println("Introduzca su Nombre de Usuario");
@@ -327,7 +328,24 @@ public class ProyectoPA {
                             System.out.println("Borrar Cliente");
                             break;
                         case 18:
-                            System.out.println("Consultar Cliente");
+                            if(!Clientes.isEmpty()){
+                                System.out.println("Consultar Cliente");
+                                System.out.println("Ingrese el ID del cliente");
+                                id = leer.nextInt();
+                                for(int i=0;i<Clientes.size()&&!ExistClien;i++){
+                                    if(Clientes.get(i).getId()==id){
+                                        System.out.println("ID del cliente: ");
+                                        System.out.println("Nombre: ");
+                                        System.out.println("Telefono: ");
+                                        System.out.println("Correo: ");
+                                        System.out.println("");
+                                        
+                                    }
+                                }
+                            }else{
+                                System.out.println("No Hay Clientes Registrados");
+                            }
+                            
                             break;
                         case 19:
                             System.out.println("Sesion Cerrada");

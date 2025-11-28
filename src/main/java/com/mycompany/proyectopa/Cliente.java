@@ -11,15 +11,15 @@ package com.mycompany.proyectopa;
 public class Cliente extends Persona{
     private String Direccion;
     private double totalC;
-    private boolean descuentoDispo;
+    private int descuentoDispo;
     private String  fechaR;
     
-    public Cliente(int id, String nombre, int telefono, String correo, String Direccion, double totalC,boolean descuentoDispo, String fechaR){
+    public Cliente(int id, String nombre, int telefono, String correo){
         super(id,nombre,telefono,correo);
-        this.Direccion = Direccion;
-        this.totalC = totalC;
-        this.descuentoDispo = descuentoDispo;
-        this.fechaR = fechaR;
+        this.Direccion = "";
+        this.totalC = 0.0;
+        this.descuentoDispo = 0;
+        this.fechaR = "";
     }
     
     public void setDireccion(String Direccion){
@@ -30,6 +30,9 @@ public class Cliente extends Persona{
     }
     public void setFechaR(String fechaR){
         this.fechaR = fechaR;
+    }
+    public void setDecuento(int desc){
+        this.descuentoDispo=desc;
     }
     
     public String getDireccion(){
@@ -42,5 +45,8 @@ public class Cliente extends Persona{
     
     public String getFechaR(){
         return fechaR;
+    }
+    public int getDescuento(){
+        return descuentoDispo;
     }
 }
