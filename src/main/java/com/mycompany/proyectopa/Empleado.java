@@ -13,7 +13,7 @@ public class Empleado extends Persona{
     private String password;
     private String puesto;
     
-    public Empleado(int id, String nombre, int telefono, String correo){
+    public Empleado(int id, String nombre, String telefono, String correo){
         super(id,nombre,telefono,correo);
     }
     

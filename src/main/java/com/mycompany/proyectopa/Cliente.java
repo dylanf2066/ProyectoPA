@@ -10,14 +10,14 @@ package com.mycompany.proyectopa;
  */
 public class Cliente extends Persona{
     private String Direccion;
-    private double totalC;
+    private int totalC;//diego lo cambio de double a entero
     private int descuentoDispo;
     private String  fechaR;
     
-    public Cliente(int id, String nombre, int telefono, String correo){
+    public Cliente(int id, String nombre, String telefono, String correo){
         super(id,nombre,telefono,correo);
         this.Direccion = "";
-        this.totalC = 0.0;
+        this.totalC = 0;
         this.descuentoDispo = 0;
         this.fechaR = "";
     }
@@ -25,7 +25,7 @@ public class Cliente extends Persona{
     public void setDireccion(String Direccion){
         this.Direccion = Direccion;
     }
-    public void setTotalC(double totalC){
+    public void setTotalC(int totalC){
         this.totalC = totalC;
     }
     public void setFechaR(String fechaR){
@@ -39,7 +39,7 @@ public class Cliente extends Persona{
         return Direccion;
     }
     
-    public double getTotalC(){
+    public int getTotalC(){
         return totalC;
     }
     

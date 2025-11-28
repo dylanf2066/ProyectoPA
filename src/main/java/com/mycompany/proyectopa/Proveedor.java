@@ -13,7 +13,7 @@ public class Proveedor extends Persona{
     private String  direccion;
     private String  tipoProducto;
     
-    public Proveedor(int id, String nombre, int telefono, String correo){
+    public Proveedor(int id, String nombre, String telefono, String correo){
         super(id,nombre,telefono,correo);
     }
     

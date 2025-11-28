@@ -11,10 +11,10 @@ package com.mycompany.proyectopa;
 public class Persona {
     private int id;
     private String nombre;
-    private int telefono;
+    private String telefono;
     private String correo;
     
-    public Persona(int id, String nombre,int telefono, String correo){
+    public Persona(int id, String nombre,String telefono, String correo){
         this.id = id;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -29,7 +29,7 @@ public class Persona {
         this.nombre = nombre;
     }
     
-    public void setTelefono(int telefono){
+    public void setTelefono(String telefono){
         this.telefono = telefono;
     }
     
@@ -43,6 +43,12 @@ public class Persona {
     
     public String getNombre(){
         return nombre;
+    }
+    public String getTelefono(){
+        return telefono;
+    } 
+    public String getCorreo(){
+        return correo;
     }
 }
 
