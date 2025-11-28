@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.proyectopa;
-
+import java.time.*;
 /**
  *
  * @author dylan
@@ -25,7 +25,9 @@ public class Producto {
     
     
     
-    public void ReducirStock(){}
+    public void ReducirStock(int cantidad){
+        Stock-=cantidad;
+    }
     
     public void DesactivarOferta(){}
     
