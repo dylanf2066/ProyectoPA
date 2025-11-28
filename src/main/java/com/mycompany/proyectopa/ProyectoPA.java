@@ -115,11 +115,12 @@ public class ProyectoPA {
            
            
            String nameUser, password,nombre,correo,puesto,confpassword,catego,tel,direccion,empresa,descrip;
-           int cont=0, indiceVendedor=0,indiceCliente=0,opc=0,id,opcInt=0,stock,ActOferta=0,indiceProveedor=0,indiceProd=0;
+           int cont=0, indiceVendedor=0,indiceCliente=0,opc=0,id,opcInt=0,stock,ActOferta=0,indiceProveedor=0,indiceProd=0,indiceGlobalEmpleado=0,y,m,d;
            long codBar=0;
            boolean ExistVendedor=false,ExistNameUser=false,ExistPasswordUser=false,LLamarAdmin=false,LLamarVendedor=false,ExistID=false;
-           boolean ExistClien=false,ExistProveedor=false,ExistCodBar=false;
+           boolean ExistClien=false,ExistProveedor=false,ExistCodBar=false,Existe=false;
            double prec,precOFER;
+           LocalDate DiaHoy = LocalDate.now();
            //do{
             System.out.println("Introduzca su Nombre de Usuario");
             nameUser = leer.nextLine();
@@ -137,6 +138,7 @@ public class ProyectoPA {
                         ExistNameUser=true;
                         if(Empleados.get(cont).getContraseña().equals(password)){
                             ExistPasswordUser=true;
+                            indiceGlobalEmpleado=cont;
                         }
                     }
                     cont++;
@@ -159,9 +161,8 @@ public class ProyectoPA {
                         case 1:
                             System.out.println("Registrar Empleados");
                             do{
-                                System.out.println("Ingrese el ID para el empleado");
-                                id = leer.nextInt();
-                                leer.nextLine();
+                                id = Empleados.size()+1;
+                                //leer.nextLine();
                                 ExistID=false;
                                 for(int i=0;i<Empleados.size()&&!ExistID;i++){
                                     if(Empleados.get(i).getId()==id){
@@ -173,32 +174,69 @@ public class ProyectoPA {
                                 }else{
                                     System.out.println("Ingrese Nombre:");
                                     nombre = leer.nextLine();
-                                    System.out.println("Ingrese Telefono:");
-                                    tel = leer.nextLine();
-                                    leer.nextLine();
+                                    do{
+                                        System.out.println("Ingrese Telefono:");
+                                        tel = leer.nextLine();
+                                        Existe=false;
+                                        for(int i=0;i<Empleados.size()&&!Existe;i++){
+                                            if(Empleados.get(i).getTelefono().equals(tel)){
+                                                Existe=true;
+                                            }
+                                        }
+                                        if(Existe){
+                                            System.out.println("Telefono registrado a otro empleado\n Utilice otro");
+                                        }
+                                    }while(Existe);
+                                    
                                     //verificar que un telefono no se repita
-                                    System.out.println("Ingrese Correo:");
-                                    correo = leer.nextLine();
+                                    do{
+                                        System.out.println("Ingrese Correo:");
+                                        correo = leer.nextLine();
+                                        Existe=false;
+                                        for(int i=0;i<Empleados.size()&&!Existe;i++){
+                                            if(Empleados.get(i).getCorreo().equals(correo)){
+                                                Existe=true;
+                                            }
+                                        }
+                                        if(Existe){
+                                            System.out.println("Correo registrado \n Utilice otro");
+                                        }
+                                    }while(Existe);
                                     //que un correo no se repita
-                                    System.out.println("Ingrese el nombre de Usuario");
-                                    nameUser = leer.nextLine();
+                                    do{
+                                        System.out.println("Ingrese el nombre de Usuario");
+                                        nameUser = leer.nextLine();
+                                        Existe=false;
+                                        for(int i=0;i<Empleados.size()&&!Existe;i++){
+                                            if(Empleados.get(i).getUsuario().equals(nameUser)){
+                                                Existe=true;
+                                            }
+                                        }
+                                        if(Existe){
+                                            System.out.println("Nombre de usuario ya resgitrado\n Utilice otro");
+                                        }
+                                    }while(Existe);
                                     //que un usuario no se repita
                                     System.out.println("Ingrese el puesto:");
                                     puesto = leer.nextLine();
-                                    System.out.println("Ingrese el password: ");
-                                    password = leer.nextLine();
-                                    System.out.println("Confirme password:");
-                                    confpassword = leer.nextLine();
-                                    if(password.equals(confpassword)){
-                                        //se registra cliente
-                                        Empleado trabajador = new Empleado(id,nombre,tel,correo);
-                                        trabajador.setUsuario(nameUser);
-                                        trabajador.setPuesto(puesto);
-                                        trabajador.setPassword(password);
-                                        Empleados.add(trabajador);
-                                    }else{
-                                        System.out.println("Contraseña invalida");
-                                    }
+                                    do{
+                                        System.out.println("Ingrese el password: ");
+                                        password = leer.nextLine();
+                                        System.out.println("Confirme password:");
+                                        confpassword = leer.nextLine();
+                                        Existe=false;
+                                        if(password.equals(confpassword)){
+                                            //se registra cliente
+                                            Existe=true;
+                                            Empleado trabajador = new Empleado(id,nombre,tel,correo);
+                                            trabajador.setUsuario(nameUser);
+                                            trabajador.setPuesto(puesto);
+                                            trabajador.setPassword(password);
+                                            Empleados.add(trabajador);
+                                        }else{
+                                            System.out.println("La contraseña debe ser igual");
+                                        }   
+                                    }while(!Existe);
                                 }
                                 System.out.println("Desea agregar otro empleado. 1-Si 2-No");
                                 opcInt = leer.nextInt();
@@ -207,6 +245,124 @@ public class ProyectoPA {
                         case 2:
                             if(!Empleados.isEmpty()){
                                 System.out.println("Editar Empleado");
+                                
+                                    System.out.println("Ingrese el ID:");
+                                    id = leer.nextInt();
+                                    leer.nextLine();
+                                    Existe=false;
+                                    for(int i=0;i<Empleados.size()&&!Existe;i++){
+                                        if(Empleados.get(i).getId()==id){
+                                            Existe=true;
+                                            indiceVendedor=i;
+                                        }
+                                    }
+                                    if(Existe){
+                                        do{
+                                            System.out.println("Seleccione la opcion:");
+                                            System.out.println("1- Nombre");
+                                            System.out.println("2- Telefono");
+                                            System.out.println("3- Correo");
+                                            System.out.println("4- Usuario");
+                                            System.out.println("5- Password");
+                                            System.out.println("6- Puesto");
+                                            System.out.println("7- Finalizar");
+                                            opcInt=leer.nextInt();
+                                            switch(opcInt){
+                                                case 1:
+                                                    System.out.println("Ingrese el nuevo Nombre: ");
+                                                    nombre = leer.nextLine();
+                                                    Empleados.get(indiceVendedor).setNombre(nombre);
+                                                    System.out.println("Modificacion Exitosa!");
+                                                    break;
+                                                case 2:
+                                                    do{
+                                                        System.out.println("Ingrese el nuevo Telefono");
+                                                        tel = leer.nextLine();
+                                                        Existe=false;
+                                                        for(int i=0;i<Empleados.size()&&!Existe;i++){
+                                                            if(Empleados.get(i).getTelefono().equals(tel)){
+                                                                Existe = true;
+                                                            }
+                                                        }
+                                                        if(Existe){
+                                                            System.out.println("Telefono Duplicado\n Intente nuevamente");
+                                                        }else{
+                                                            Empleados.get(indiceVendedor).setTelefono(tel);
+                                                            System.out.println("Modificacion Exitosa");
+                                                        }
+                                                    }while(Existe);
+                                                    break;
+                                                case 3:
+                                                    do{
+                                                        System.out.println("Ingrese el nuevo Correo");
+                                                        correo = leer.nextLine();
+                                                        Existe=false;
+                                                        for(int i=0;i<Empleados.size()&&!Existe;i++){
+                                                            if(Empleados.get(i).getCorreo().equals(correo)){
+                                                                Existe=true;
+                                                            }
+                                                        }
+                                                        if(Existe){
+                                                            System.out.println("Correo Duplicado\n Intenete nuevamente");
+                                                        }else{
+                                                            Empleados.get(indiceVendedor).setCorreo(correo);
+                                                            System.out.println("Modificacion Exitosa");
+                                                        }
+                                                    }while(Existe);
+                                                    break;
+                                                case 4:
+                                                    do{
+                                                        System.out.println("Ingrese el nuevo nombre de usuario");
+                                                        nameUser = leer.nextLine();
+                                                        Existe=false;
+                                                        for(int i=0;i<Empleados.size()&&!Existe;i++){
+                                                            if(Empleados.get(i).getUsuario().equals(nameUser)){
+                                                                Existe=true;
+                                                            }
+                                                        }
+                                                        if(Existe){
+                                                            System.out.println("Nombre de Usuario Duplicado\n Intente nuevamente");
+                                                        }else{
+                                                            Empleados.get(indiceVendedor).setUsuario(nameUser);
+                                                            System.out.println("Modificacion Exitosa");
+                                                        }
+                                                        
+                                                    }while(Existe);
+                                                    break;
+                                                case 5:
+                                                    do{
+                                                        System.out.println("Ingrese el nuevo password: ");
+                                                        password = leer.nextLine();
+                                                        System.out.println("Confirme password:");
+                                                        confpassword = leer.nextLine();
+                                                        Existe=false;
+                                                        if(password.equals(confpassword)){
+                                                            Existe=true;
+                                                            Empleados.get(indiceVendedor).setPassword(password);
+                                                            System.out.println("Modificacion Exitosa!");
+                                                        }else{
+                                                            System.out.println("La contraseña debe ser igual");
+                                                        }   
+                                                    }while(!Existe);
+                                                    break;
+                                                case 6:
+                                                    System.out.println("Ingrese el Nuevo Puesto");
+                                                    puesto = leer.nextLine();
+                                                    Empleados.get(indiceVendedor).setPuesto(puesto);
+                                                    System.out.println("Modificacion Exitosa");
+                                                    break;
+                                                case 7:
+                                                    System.out.println("Modificaciones terminadas");
+                                                    break;
+                                                default:
+                                                    System.out.println("Opcion Invalida");
+                                                    break;
+                                            }
+                                        }while(opcInt!=7);
+                                    }else{
+                                        System.out.println("ID no registrado");
+                                    }
+                                
                             }else{
                                 System.out.println("No hay empleados registrados");
                             }
@@ -214,6 +370,18 @@ public class ProyectoPA {
                         case 3:
                             if(!Empleados.isEmpty()){
                                 System.out.println("Borrar Empleado");
+                                System.out.println("Ingrese el Id del empleado: ");
+                                id = leer.nextInt();
+                                leer.nextLine();
+                                Existe=false;
+                                for(int i=0;i<Empleados.size()&&!Existe;i++){
+                                    if(Empleados.get(i).getId()==id){
+                                        Existe=true;
+                                        System.out.println("Se elimino el empleado: "+Empleados.remove(i).getNombre());
+                                    }
+                                }
+                                if(!Existe){
+                                    System.out.println("ID no registrado");}
                             }else{
                                 System.out.println("No hay empleados registrados");
                             }
@@ -222,98 +390,167 @@ public class ProyectoPA {
                         case 4:
                             if(!Empleados.isEmpty()){
                                 System.out.println("Mostrar Empleados");
+                                for(Empleado E: Empleados){
+                                    System.out.println("Nombre: "+E.getNombre());
+                                    System.out.println("ID:"+E.getId());
+                                    System.out.println("Telefono: "+E.getTelefono());
+                                    System.out.println("Correo: "+E.getCorreo());
+                                    System.out.println("Usuario: "+E.getUsuario());
+                                    System.out.println("Puesto: "+E.getPuesto());
+                                    System.out.println("--------------------------");
+                                }
                             }else{
                                 System.out.println("No hay empleados registrados");
                             }
                             break;
                         case 5:
-                            System.out.println("Registrar Productos");
-                            System.out.println("Ingrese el id para el producto: ");
-                            id = leer.nextInt();
-                            leer.nextLine();
-                            ExistID=false;
-                            if(!Productos.isEmpty()){
-                                for(int i=0; i<Productos.size()&&!ExistID;i++){
-                                    if(Productos.get(i).getID()==id){
-                                        ExistID = true;
-                                    }
-                                }
-                            }
-                            if(!ExistID){
-                                Producto Articulo = new Producto();
-                                Articulo.setID(id);
-                                System.out.println("Ingresa el nombre del producto:");
-                                nombre = leer.nextLine();
-                                Articulo.setNombre(nombre);
-                                do{
-                                    System.out.println("Ingrese la cantidad para inventario: ");
-                                    stock = leer.nextInt();
-                                    leer.nextLine();
-                                    Articulo.setStock(stock);
-                                if(stock>0){
+                            do{
+                                System.out.println("Registrar Productos");
+                                //System.out.println("Ingrese el id para el producto: ");
+                                id = Productos.size()+1;
+                                //leer.nextLine();
+                                
+                                    Producto Articulo = new Producto();
+                                    Articulo.setID(id);
+                                    System.out.println("Ingresa el nombre del producto:");
+                                    nombre = leer.nextLine();
+                                    Articulo.setNombre(nombre);
+                                    do{
+                                        System.out.println("Ingrese la cantidad para inventario: ");
+                                        stock = leer.nextInt();
+                                        leer.nextLine();
+                                        if(stock>0){
+                                            Articulo.setStock(stock);
+                                        }else{
+                                            System.out.println("Cantidad Invalida\n Introduzca los datos nuevamente");
+                                        }
+                                    }while(stock<=0);
+                                    
                                     do{
                                         System.out.println("Ingrese el precio del producto");
                                         prec=leer.nextDouble();  
                                         if(prec<0){
                                             System.out.println("Precio Invalido intente nuevamente:");
+                                        }else{
+                                            Articulo.setNormalPrecio(prec);
                                         }
                                     }while(prec<0);   
-                                    Articulo.setNormalPrecio(prec);
+                                        
                                     System.out.println("Su producto tendra una oferta activa? 1-Si 2-No ");
                                     ActOferta = leer.nextInt();
-                                    
+
                                     if(ActOferta==1){
                                         do{
                                             System.out.println("Ingrese el precio para su oferta:");
                                             precOFER=leer.nextDouble();
                                             if(precOFER<=0){
                                                 System.out.println("Precio Invalido intente nuevamente:");
+                                            }else{
+                                                Articulo.setOfertaPrecio(precOFER);
                                             }
                                         }while(precOFER<=0);
-                                        Articulo.setOfertaPrecio(precOFER);
-                                        //Dylan acomodale aqui el que guarde la fecha
                                         
-                                        System.out.println("Ingrese la fecha de inicio de oferta");
-                                        System.out.println("Ingrese la fecha de fin de oferta");
-                                        //set de fechas
+                                        do{
+                                            Existe=false;
+                                            System.out.println("Ingrese la fecha de inicio de oferta");
+                                            System.out.println("Año: ");
+                                            y = leer.nextInt();
+                                            System.out.println("Mes: ");
+                                            m = leer.nextInt();
+                                            System.out.println("Dia: ");
+                                            d = leer.nextInt();
+                                            leer.nextLine();
+                                            if(y>0&&m>0&&d>0){
+                                                Articulo.setIncOfer(y, m, d);
+                                                Existe=true;
+                                            }else{
+                                                System.out.println("Fecha Incorrecta\n Intente Nuevamente");
+                                            }
+                                        }while(!Existe);
+                                        
+                                        do{
+                                            Existe=false;
+                                            System.out.println("Ingrese la fecha de fin de oferta");
+                                            System.out.println("Año: ");
+                                            y = leer.nextInt();
+                                            System.out.println("Mes: ");
+                                            m = leer.nextInt();
+                                            System.out.println("Dia: ");
+                                            d = leer.nextInt();
+                                            leer.nextLine();
+                                            
+                                            if(y>0&&m>0&&d>0){
+                                                LocalDate fecha = LocalDate.of(y, m, d);
+                                                if(fecha.isAfter(Articulo.getIncOfer())){
+                                                    Articulo.setFinOfer(y, m, d);
+                                                }else{
+                                                    System.out.println("La fecha debe ser despues de la fecha de activacion!!");
+                                                }
+                                            }else{
+                                                System.out.println("Fecha Incorrecta");
+                                            }
+                                        }while(Existe);
+                                        //System.out.println("La oferta se activa automaticamente, para desactivarla vaya a la opcion en el menu");
+                                        //Articulo.ActivarOferta();
                                         
                                     }else if(ActOferta==2){
                                         System.out.println("Producto sin oferta activa");
                                     }else{
                                         System.out.println("Opcion Invalida");
                                     }
-                                    
+
                                     System.out.println("Ingrese la categoria");
                                     catego = leer.nextLine();
                                     Articulo.setCategoria(catego);
-                                    //Dylaaaaaaaaaaaaaaaaaan aca le modificas
-                                    System.out.println("Ingresa la fecha de caducidad");
-                                    //set de la fecha
+                                    
+                                    do{
+                                        Existe=false;
+                                        System.out.println("Ingresa la fecha de caducidad");
+                                        System.out.println("Año: ");
+                                        y = leer.nextInt();
+                                        System.out.println("Mes: ");
+                                        m = leer.nextInt();
+                                        System.out.println("Dia: ");
+                                        d = leer.nextInt();
+                                        leer.nextLine();
+                                        if(y>0&&m>0&&d>0){
+                                            LocalDate Cadu = LocalDate.of(y, m, d);
+                                            if(Cadu.isAfter(DiaHoy)){
+                                                Articulo.setCaducidad(y,m,d);
+                                                Existe=true;
+                                            }else{
+                                                System.out.println("No puedes registrar productos vencidos");
+                                            }
+                                        }
+                                    }while(!Existe);
+                                        
+                                        
                                     System.out.println("Ingresa la descripcion");
                                     descrip = leer.nextLine();
                                     Articulo.setDescripcion(descrip);
-                                    System.out.println("Ingresa el codigo de barras: ");
-                                    codBar = leer.nextLong();
-                                    ExistCodBar = false;
-                                    for(int i =0;i<Productos.size()&&!ExistCodBar;i++){
-                                        if(Productos.get(i).getCodigoBarras()==codBar){
-                                            ExistCodBar=true;
+                                        
+                                    do{
+                                        System.out.println("Ingresa el codigo de barras: ");
+                                        codBar = leer.nextLong();
+                                        ExistCodBar = false;
+                                        for(int i =0;i<Productos.size()&&!ExistCodBar;i++){
+                                            if(Productos.get(i).getCodigoBarras()==codBar){
+                                                ExistCodBar=true;
+                                            }
                                         }
-                                    }
-                                    if(ExistCodBar){
-                                        System.out.println("Codigo de barras en uso");
-                                    }else{
-                                        Articulo.setCodigoBarras(codBar);
-                                    }
+                                        if(ExistCodBar){
+                                            System.out.println("Codigo de barras en uso");
+                                        }else{
+                                            Articulo.setCodigoBarras(codBar);
+                                        }
+                                    }while(ExistCodBar);
+                                        
                                     System.out.println("Producto Registrado");
-                                    
-                                }else{
-                                    System.out.println("Cantidad Invalida.\n Intente otra vez");
-                                }   
-                                }while(stock<=0); 
-                            }else{
-                                System.out.println("ID ya en uso");
-                            }
+                                    Productos.add(Articulo);
+                                    System.out.println("Desea Agregar otro Producto? 1-Si, 2-No");
+                                    opcInt = leer.nextInt();
+                                    leer.nextLine();
+                            }while(opcInt!=2);
                             break;
                         case 6:
                             if(!Productos.isEmpty()){
@@ -342,7 +579,9 @@ public class ProyectoPA {
                                         System.out.println("8- Fecha de Caducidad");
                                         System.out.println("9- Codigo de barras");
                                         System.out.println("10- Categoria ");
-                                        System.out.println("11- Finalizar");
+                                        //System.out.println("11- Activar Oferta");
+                                        //System.out.println("12- Desactivar Oferta");
+                                        System.out.println("13- Terminar Edicion");
                                         modif = leer.nextInt();
                                         leer.nextLine();
                                         switch(modif){
@@ -358,44 +597,108 @@ public class ProyectoPA {
                                                 Productos.get(indiceProd).setDescripcion(descrip);
                                                 System.out.println("Operacion Exitosa!");
                                                 break;
-                                            case 3:
-                                                System.out.println("Ingrese el precio base ");
-                                                prec = leer.nextDouble();
-                                                if(prec>0){
-                                                    Productos.get(indiceProd).setNormalPrecio(prec);
-                                                    System.out.println("Operacion Exitosa!");
-                                                }else{
-                                                    System.out.println("Precio no valido");
-                                                }
+                                            case 3: 
+                                                do{
+                                                    System.out.println("Ingrese el precio base ");
+                                                    prec = leer.nextDouble();
+                                                    if(prec>0){
+                                                        Productos.get(indiceProd).setNormalPrecio(prec);
+                                                        System.out.println("Operacion Exitosa!");
+                                                    }else{
+                                                        System.out.println("Precio no valido");
+                                                    }
+                                                }while(prec<0);    
                                                 break;
                                             case 4:
-                                                System.out.println("Ingrese el precio para la oferta: ");
-                                                precOFER = leer.nextDouble();
-                                                if(precOFER>0){
-                                                    Productos.get(indiceProd).setOfertaPrecio(precOFER);
-                                                    System.out.println("Operacion Exitosa!");
-                                                }else{
-                                                    System.out.println("Precio no Valido");
-                                                }
+                                                do{
+                                                    System.out.println("Ingrese el precio para la oferta: ");
+                                                    precOFER = leer.nextDouble();
+                                                    if(precOFER>0){
+                                                        Productos.get(indiceProd).setOfertaPrecio(precOFER);
+                                                        System.out.println("Operacion Exitosa!");
+                                                    }else{
+                                                        System.out.println("Precio no Valido");
+                                                    }
+                                                }while(precOFER<0);
                                                 break;
                                             case 5:
-                                                System.out.println("Ingrese la fecha de inicio para la oferta");
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingrese la fecha de inicio para la oferta");
+                                                    System.out.println("Año: ");
+                                                    y = leer.nextInt();
+                                                    System.out.println("Mes: ");
+                                                    m = leer.nextInt();
+                                                    System.out.println("Dia: ");
+                                                    d = leer.nextInt();
+                                                    leer.nextLine();
+                                                    if(y>0&&m>0&&d>0){
+                                                        Productos.get(indiceProd).setIncOfer(y, m, d);
+                                                        System.out.println("Operacion Exitosa");
+                                                        Existe=true;
+                                                    }else{
+                                                        System.out.println("Fecha incorrecta");
+                                                    }
+                                                }while(!Existe);
                                                 break;
                                             case 6:
-                                                System.out.println("Ingrese la fecha de fin para la oferta");
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingrese la fecha de fin para la oferta");
+                                                    System.out.println("Año: ");
+                                                    y = leer.nextInt();
+                                                    System.out.println("Mes: ");
+                                                    m = leer.nextInt();
+                                                    System.out.println("Dia: ");
+                                                    d = leer.nextInt();
+                                                    leer.nextLine();
+                                                    if(y>0&&m>0&&d>0){
+                                                        LocalDate fecha = LocalDate.of(y, m, d);
+                                                        if(Productos.get(indiceVendedor).getIncOfer().isBefore(fecha)){
+                                                            Productos.get(indiceVendedor).setFinOfer(y, m, d);
+                                                            System.out.println("Operacion Exitosa!");
+                                                            Existe=true;
+                                                        }else{
+                                                            System.out.println("La fecha debe ser despues de la fecha de activacion");
+                                                        }
+                                                    }
+                                                }while(Existe);
                                                 break;
                                             case 7:
-                                                System.out.println("Ingrese la Cantidad para Inventario");
-                                                stock = leer.nextInt();
-                                                if(stock>0){
-                                                    Productos.get(indiceProd).setStock(stock);
-                                                    System.out.println("Operacion Exitosa!");
-                                                }else{
-                                                    System.out.println("Cantidad Invalida");
-                                                }
+                                                do{ 
+                                                    Existe=false;
+                                                    System.out.println("Ingrese la Cantidad para Inventario");
+                                                    stock = leer.nextInt();
+                                                    if(stock>0){
+                                                        Productos.get(indiceProd).setStock(stock);
+                                                        Existe=true;
+                                                        System.out.println("Operacion Exitosa!");
+                                                    }else{
+                                                        System.out.println("Cantidad Invalida");
+                                                    }
+                                                }while(!Existe);
                                                 break;
                                             case 8:
-                                                System.out.println("Ingrese la fecha de caducidad: ");
+                                                do{ 
+                                                    Existe=false;
+                                                    System.out.println("Ingrese la fecha de caducidad: ");
+                                                    System.out.println("Año: ");
+                                                    y = leer.nextInt();
+                                                    System.out.println("Mes: ");
+                                                    m = leer.nextInt();
+                                                    System.out.println("Dia: ");
+                                                    d = leer.nextInt();
+                                                    leer.nextLine();
+                                                    if(y>0&&m>0&&d>0){
+                                                        LocalDate fecha = LocalDate.of(y, m, d);
+                                                        if(fecha.isAfter(DiaHoy)){
+                                                            Productos.get(indiceProd).setCaducidad(y, m, d);
+                                                            Existe=true;
+                                                        }else{
+                                                            System.out.println("No puedes registrar fechas vencidas");
+                                                        }
+                                                    }
+                                                }while(!Existe);
                                                 break;
                                             case 9:
                                                 System.out.println("Ingrese el codigo de barras");
@@ -419,18 +722,27 @@ public class ProyectoPA {
                                                 Productos.get(indiceProd).setCategoria(catego);
                                                 System.out.println("Operacion realizada!");
                                                 break;
-                                            case 11:
+                                            /*case 11:
+                                                System.out.println("Oferta Activada para "+Productos.get(indiceProd).getNombre());
+                                                Productos.get(indiceProd).ActivarOferta();
+                                                break;
+                                            case 12:
+                                                System.out.println("Oferta desactivada para: ");
+                                                break;
+                                            */
+                                            case 13:
                                                 System.out.println("Operacion Finalizada");
                                                 break;
                                             default:
                                                 System.out.println("Opcion invalida");
                                                 
                                         }
-                                    }while(modif!=11);
+                                    }while(modif!=13);
                                 }else{
                                     System.out.println("ID no registrado");
                                 }
                             }else{
+                                System.out.println("No hay Productos Registrados");
                             }
                             
                             break;

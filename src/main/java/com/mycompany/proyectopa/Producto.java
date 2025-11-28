@@ -14,10 +14,10 @@ public class Producto {
     private String Descripcion;//
     private double Precio;
     private double PrecioOferta;
-    private LocalDate InicioOferta= LocalDate.now();
-    private LocalDate FinOferta=LocalDate.now();
+    private LocalDate InicioOferta;//= LocalDate.now();
+    private LocalDate FinOferta;//=LocalDate.now();
     private int Stock;
-    private String Caducidad;
+    private LocalDate Caducidad;
     private String Categoria;
     private long CodigoBarras;//
     private boolean Activ;//
@@ -99,10 +99,10 @@ public class Producto {
     public int getStock(){
         return Stock;
     }
-    public void setCaducidad(String Caducidad){
-        this.Caducidad = Caducidad;
+    public void setCaducidad(int y,int m,int d){
+        this.Caducidad = LocalDate.of(y, m, d);
     }
-    public String getCaducidad(){
+    public LocalDate getCaducidad(){
         return Caducidad;
     }
     public void setCategoria(String Categoria){
