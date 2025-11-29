@@ -1018,6 +1018,57 @@ public class ProyectoPA {
                             break;
                         case 14:
                             System.out.println("Registrar Clientes");
+                            id = Clientes.size()+1;
+                            System.out.println("Ingresa el Nombre: ");
+                            nombre = leer.nextLine();
+                            do{
+                                System.out.println("Ingresa el Telefono: ");
+                                tel = leer.nextLine();
+                                Existe=false;
+                                for(int i=0;i<Clientes.size()&&!Existe;i++){
+                                    if(Clientes.get(i).getTelefono().equals(tel)){
+                                        Existe=true;
+                                    }
+                                }
+                                if(Existe){
+                                    System.out.println("Telefono Asignado a alguien mas\nIntente Otra Vez");
+                                }
+                            }while(Existe);
+                            do{
+                                Existe=false;
+                                System.out.println("Ingrese el correo: ");
+                                correo = leer.nextLine();
+                                for(int i=0;i<Clientes.size()&&!Existe;i++){
+                                    if(Clientes.get(i).getCorreo().equals(correo)){
+                                        Existe=true;
+                                    }
+                                }
+                                if(Existe){
+                                    System.out.println("Correo Asiganado a alguien mas\nIntente Otra Vez");
+                                }
+                            }while(Existe);
+                            do{
+                                Existe=false;
+                                System.out.println("Ingrese la Direccion:");
+                                direccion = leer.nextLine();
+                                for(int i=0;i<Clientes.size()&&!Existe;i++){
+                                    if(Clientes.get(i).getDireccion().equals(direccion)){
+                                        Existe=true;
+                                    }
+                                }
+                                if(Existe){
+                                    System.out.println("Direccion Asiganada a alguien mas\nintente Otra Vez");
+                                }
+                            }while(Existe);
+                            
+                                Cliente clien = new Cliente(id,nombre,tel,correo);
+                                clien.setDireccion(direccion);
+                                clien.setFechaR(DiaHoy);
+                                Clientes.add(clien);
+                                System.out.println("Cliente Registrado Exitosamente!");
+                                    
+                                
+                                
                             break;
                         case 15:
                             int eleccion=0;
@@ -1051,23 +1102,62 @@ public class ProyectoPA {
                                                 Clientes.get(indiceCliente).setNombre(nombre);
                                                 System.out.println("Modificacion Exitosa!");
                                                 break;
-                                            case 2:
-                                                System.out.println("Ingrese el Nuevo Correo:");
-                                                correo = leer.nextLine();
-                                                Clientes.get(indiceCliente).setCorreo(correo);
-                                                System.out.println("Modificacion Exitosa!");
+                                            case 2://agregar verificacion
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingrese el Nuevo Correo:");
+                                                    correo = leer.nextLine();
+                                                    Clientes.get(indiceCliente).setCorreo("");
+                                                    for(int i=0;i<Clientes.size()&&!Existe;i++){
+                                                        if(Clientes.get(i).getCorreo().equals(correo)){
+                                                            Existe=true;
+                                                        }
+                                                    }
+                                                    if(Existe){
+                                                        System.out.println("Correo Asignado a Alguien mas\nIntente nuevamente");
+                                                    }else{
+                                                        Clientes.get(indiceCliente).setCorreo(correo);
+                                                        System.out.println("Modificacion Exitosa!");
+                                                    }
+                                                }while(Existe);
                                                 break;
                                             case 3:
-                                                System.out.println("Ingrese el Nuevo Telefono:");
-                                                tel = leer.nextLine();
-                                                Clientes.get(indiceCliente).setTelefono(tel);
-                                                System.out.println("Modificacion Exitosa!");
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingrese el Nuevo Telefono:");
+                                                    tel = leer.nextLine();
+                                                    Clientes.get(indiceCliente).setTelefono("");
+                                                    for(int i=0;i<Clientes.size()&&!Existe;i++){
+                                                        if(Clientes.get(i).getTelefono().equals(tel)){
+                                                            Existe=true;
+                                                        }
+                                                    }
+                                                    if(Existe){
+                                                        System.out.println("Telefono Asignado a Alguien mas\nIntente nuevamente");
+                                                    }else{
+                                                        Clientes.get(indiceCliente).setTelefono(tel);
+                                                        System.out.println("Modificacion Exitosa!");
+                                                    }
+                                                }while(Existe);
                                                 break;
                                             case 4:
-                                                System.out.println("Ingrese la Nueva Direccion:");
-                                                direccion = leer.nextLine();
-                                                Clientes.get(indiceCliente).setDireccion(direccion);
-                                                System.out.println("Modificacion Exitosa!");
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingrese la Nueva Direccion:");
+                                                    direccion = leer.nextLine();
+                                                    Clientes.get(indiceCliente).setDireccion("");
+                                                    for(int i=0;i<Clientes.size()&&!Existe;i++){
+                                                        if(Clientes.get(i).getDireccion().equals(direccion)){
+                                                            Existe=true;
+                                                        }
+                                                    }
+                                                    if(Existe){
+                                                        System.out.println("Direccion Asignada a Alguien mas\nIntente nuevamente");
+                                                    }else{
+                                                        Clientes.get(indiceCliente).setDireccion(direccion);
+                                                        System.out.println("Modificacion Exitosa!");
+                                                    }
+                                                }while(Existe);
                                                 break;
                                             case 5:
                                                 System.out.println("Modificaciones Terminadas");
