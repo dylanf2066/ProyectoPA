@@ -21,6 +21,7 @@ public class ProyectoPA {
     public static void AccionesVendedor(Scanner lectorLocal){
         System.out.println("Soy el vendedor");
     }
+    //agregar cerrar programa y de salir a cerrar sesion y terminar programa
     public static void MostrarMenuAdmin(){
         System.out.println("Seleccione la operacion: ");
         System.out.println("1-  Registrar Empleados");
@@ -1269,24 +1270,506 @@ public class ProyectoPA {
                                     System.out.println("No se ha registrado ninguna venta");
                             break;    
                         case 3:
-                            System.out.println("Registrar Productos");
-                            int repet=0;
                             do{
+                                System.out.println("Registrar Productos");
+                                //System.out.println("Ingrese el id para el producto: ");
+                                id = Productos.size()+1;
+                                //leer.nextLine();
                                 
-                                System.out.println("Desea Registrar otro Producto? 1-SI 2-NO");
-                                repet = leer.nextInt();
-                            }while(repet!=2);
+                                    Producto Articulo = new Producto();
+                                    Articulo.setID(id);
+                                    System.out.println("Ingresa el nombre del producto:");
+                                    nombre = leer.nextLine();
+                                    Articulo.setNombre(nombre);
+                                    do{
+                                        System.out.println("Ingrese la cantidad para inventario: ");
+                                        stock = leer.nextInt();
+                                        leer.nextLine();
+                                        if(stock>0){
+                                            Articulo.setStock(stock);
+                                        }else{
+                                            System.out.println("Cantidad Invalida\n Introduzca los datos nuevamente");
+                                        }
+                                    }while(stock<=0);
+                                    
+                                    do{
+                                        System.out.println("Ingrese el precio del producto");
+                                        prec=leer.nextDouble();  
+                                        if(prec<0){
+                                            System.out.println("Precio Invalido intente nuevamente:");
+                                        }else{
+                                            Articulo.setNormalPrecio(prec);
+                                        }
+                                    }while(prec<0);   
+                                        
+                                    System.out.println("Su producto tendra una oferta activa? 1-Si 2-No ");
+                                    ActOferta = leer.nextInt();
+
+                                    if(ActOferta==1){
+                                        do{
+                                            System.out.println("Ingrese el precio para su oferta:");
+                                            precOFER=leer.nextDouble();
+                                            if(precOFER<=0){
+                                                System.out.println("Precio Invalido intente nuevamente:");
+                                            }else{
+                                                Articulo.setOfertaPrecio(precOFER);
+                                            }
+                                        }while(precOFER<=0);
+                                        
+                                        do{
+                                            Existe=false;
+                                            System.out.println("Ingrese la fecha de inicio de oferta");
+                                            System.out.println("Año: ");
+                                            y = leer.nextInt();
+                                            System.out.println("Mes: ");
+                                            m = leer.nextInt();
+                                            System.out.println("Dia: ");
+                                            d = leer.nextInt();
+                                            leer.nextLine();
+                                            if(y>0&&m>0&&d>0){
+                                                Articulo.setIncOfer(y, m, d);
+                                                Existe=true;
+                                            }else{
+                                                System.out.println("Fecha Incorrecta\n Intente Nuevamente");
+                                            }
+                                        }while(!Existe);
+                                        
+                                        do{
+                                            Existe=false;
+                                            System.out.println("Ingrese la fecha de fin de oferta");
+                                            System.out.println("Año: ");
+                                            y = leer.nextInt();
+                                            System.out.println("Mes: ");
+                                            m = leer.nextInt();
+                                            System.out.println("Dia: ");
+                                            d = leer.nextInt();
+                                            leer.nextLine();
+                                            
+                                            if(y>0&&m>0&&d>0){
+                                                LocalDate fecha = LocalDate.of(y, m, d);
+                                                if(fecha.isAfter(Articulo.getIncOfer())){
+                                                    Articulo.setFinOfer(y, m, d);
+                                                }else{
+                                                    System.out.println("La fecha debe ser despues de la fecha de activacion!!");
+                                                }
+                                            }else{
+                                                System.out.println("Fecha Incorrecta");
+                                            }
+                                        }while(Existe);
+                                        //System.out.println("La oferta se activa automaticamente, para desactivarla vaya a la opcion en el menu");
+                                        //Articulo.ActivarOferta();
+                                        
+                                    }else if(ActOferta==2){
+                                        System.out.println("Producto sin oferta activa");
+                                    }else{
+                                        System.out.println("Opcion Invalida");
+                                    }
+
+                                    System.out.println("Ingrese la categoria");
+                                    catego = leer.nextLine();
+                                    Articulo.setCategoria(catego);
+                                    
+                                    do{
+                                        Existe=false;
+                                        System.out.println("Ingresa la fecha de caducidad");
+                                        System.out.println("Año: ");
+                                        y = leer.nextInt();
+                                        System.out.println("Mes: ");
+                                        m = leer.nextInt();
+                                        System.out.println("Dia: ");
+                                        d = leer.nextInt();
+                                        leer.nextLine();
+                                        if(y>0&&m>0&&d>0){
+                                            LocalDate Cadu = LocalDate.of(y, m, d);
+                                            if(Cadu.isAfter(DiaHoy)){
+                                                Articulo.setCaducidad(y,m,d);
+                                                Existe=true;
+                                            }else{
+                                                System.out.println("No puedes registrar productos vencidos");
+                                            }
+                                        }
+                                    }while(!Existe);
+                                        
+                                        
+                                    System.out.println("Ingresa la descripcion");
+                                    descrip = leer.nextLine();
+                                    Articulo.setDescripcion(descrip);
+                                        
+                                    do{
+                                        System.out.println("Ingresa el codigo de barras: ");
+                                        codBar = leer.nextLong();
+                                        ExistCodBar = false;
+                                        for(int i =0;i<Productos.size()&&!ExistCodBar;i++){
+                                            if(Productos.get(i).getCodigoBarras()==codBar){
+                                                ExistCodBar=true;
+                                            }
+                                        }
+                                        if(ExistCodBar){
+                                            System.out.println("Codigo de barras en uso");
+                                        }else{
+                                            Articulo.setCodigoBarras(codBar);
+                                        }
+                                    }while(ExistCodBar);
+                                        
+                                    System.out.println("Producto Registrado");
+                                    Productos.add(Articulo);
+                                    System.out.println("Desea Agregar otro Producto? 1-Si, 2-No");
+                                    opcInt = leer.nextInt();
+                                    leer.nextLine();
+                            }while(opcInt!=2);
                             break;
                         case 4:
-                            System.out.println("Editar Productos");
+                            if(!Productos.isEmpty()){
+                                System.out.println("Editar Producto");
+                                System.out.println("Ingrese el ID del producto: ");
+                                id = leer.nextInt();
+                                ExistID=false;
+                                indiceProd=0;
+                                for(int i=0;i<Productos.size()&&!ExistID;i++){
+                                    if(Productos.get(i).getID()==id){
+                                        ExistID=true;
+                                        indiceProd=i;
+                                    }
+                                }
+                                if(ExistID){
+                                    int modif=0;
+                                    do{
+                                        System.out.println("Seleccione la opcion: ");
+                                        System.out.println("1- Nombre");
+                                        System.out.println("2- Descripcion");
+                                        System.out.println("3- Precio");
+                                        System.out.println("4- Precio para oferta");
+                                        System.out.println("5- Fecha de inicio para oferta");
+                                        System.out.println("6- Fecha de fin para oferta");
+                                        System.out.println("7- Cantidad para inventario");
+                                        System.out.println("8- Fecha de Caducidad");
+                                        System.out.println("9- Codigo de barras");
+                                        System.out.println("10- Categoria ");
+                                        //System.out.println("11- Activar Oferta");
+                                        //System.out.println("12- Desactivar Oferta");
+                                        System.out.println("13- Terminar Edicion");
+                                        modif = leer.nextInt();
+                                        leer.nextLine();
+                                        switch(modif){
+                                            case 1:
+                                                System.out.println("Ingrese el nuevo nombre: ");
+                                                nombre = leer.nextLine();
+                                                Productos.get(indiceProd).setNombre(nombre);
+                                                System.out.println("Operacion Exitosa!");
+                                                break;
+                                            case 2:
+                                                System.out.println("Ingrese la descripcion: ");
+                                                descrip = leer.nextLine();
+                                                Productos.get(indiceProd).setDescripcion(descrip);
+                                                System.out.println("Operacion Exitosa!");
+                                                break;
+                                            case 3: 
+                                                do{
+                                                    System.out.println("Ingrese el precio base ");
+                                                    prec = leer.nextDouble();
+                                                    if(prec>0){
+                                                        Productos.get(indiceProd).setNormalPrecio(prec);
+                                                        System.out.println("Operacion Exitosa!");
+                                                    }else{
+                                                        System.out.println("Precio no valido");
+                                                    }
+                                                }while(prec<0);    
+                                                break;
+                                            case 4:
+                                                do{
+                                                    System.out.println("Ingrese el precio para la oferta: ");
+                                                    precOFER = leer.nextDouble();
+                                                    if(precOFER>0){
+                                                        Productos.get(indiceProd).setOfertaPrecio(precOFER);
+                                                        System.out.println("Operacion Exitosa!");
+                                                    }else{
+                                                        System.out.println("Precio no Valido");
+                                                    }
+                                                }while(precOFER<0);
+                                                break;
+                                            case 5:
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingrese la fecha de inicio para la oferta");
+                                                    System.out.println("Año: ");
+                                                    y = leer.nextInt();
+                                                    System.out.println("Mes: ");
+                                                    m = leer.nextInt();
+                                                    System.out.println("Dia: ");
+                                                    d = leer.nextInt();
+                                                    leer.nextLine();
+                                                    if(y>0&&m>0&&d>0){
+                                                        Productos.get(indiceProd).setIncOfer(y, m, d);
+                                                        System.out.println("Operacion Exitosa");
+                                                        Existe=true;
+                                                    }else{
+                                                        System.out.println("Fecha incorrecta");
+                                                    }
+                                                }while(!Existe);
+                                                break;
+                                            case 6:
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingrese la fecha de fin para la oferta");
+                                                    System.out.println("Año: ");
+                                                    y = leer.nextInt();
+                                                    System.out.println("Mes: ");
+                                                    m = leer.nextInt();
+                                                    System.out.println("Dia: ");
+                                                    d = leer.nextInt();
+                                                    leer.nextLine();
+                                                    if(y>0&&m>0&&d>0){
+                                                        LocalDate fecha = LocalDate.of(y, m, d);
+                                                        if(Productos.get(indiceVendedor).getIncOfer().isBefore(fecha)){
+                                                            Productos.get(indiceVendedor).setFinOfer(y, m, d);
+                                                            System.out.println("Operacion Exitosa!");
+                                                            Existe=true;
+                                                        }else{
+                                                            System.out.println("La fecha debe ser despues de la fecha de activacion");
+                                                        }
+                                                    }
+                                                }while(Existe);
+                                                break;
+                                            case 7:
+                                                do{ 
+                                                    Existe=false;
+                                                    System.out.println("Ingrese la Cantidad para Inventario");
+                                                    stock = leer.nextInt();
+                                                    if(stock>0){
+                                                        Productos.get(indiceProd).setStock(stock);
+                                                        Existe=true;
+                                                        System.out.println("Operacion Exitosa!");
+                                                    }else{
+                                                        System.out.println("Cantidad Invalida");
+                                                    }
+                                                }while(!Existe);
+                                                break;
+                                            case 8:
+                                                do{ 
+                                                    Existe=false;
+                                                    System.out.println("Ingrese la fecha de caducidad: ");
+                                                    System.out.println("Año: ");
+                                                    y = leer.nextInt();
+                                                    System.out.println("Mes: ");
+                                                    m = leer.nextInt();
+                                                    System.out.println("Dia: ");
+                                                    d = leer.nextInt();
+                                                    leer.nextLine();
+                                                    if(y>0&&m>0&&d>0){
+                                                        LocalDate fecha = LocalDate.of(y, m, d);
+                                                        if(fecha.isAfter(DiaHoy)){
+                                                            Productos.get(indiceProd).setCaducidad(y, m, d);
+                                                            Existe=true;
+                                                        }else{
+                                                            System.out.println("No puedes registrar fechas vencidas");
+                                                        }
+                                                    }
+                                                }while(!Existe);
+                                                break;
+                                            case 9:
+                                                System.out.println("Ingrese el codigo de barras");
+                                                codBar = leer.nextLong();
+                                                Productos.get(indiceProd).setCodigoBarras(0);
+                                                ExistCodBar=false;
+                                                for(int i=0;i<Productos.size()&&!ExistCodBar;i++){
+                                                    if(Productos.get(i).getCodigoBarras()==codBar){
+                                                        ExistCodBar=true;
+                                                    }
+                                                }
+                                                if(ExistCodBar){
+                                                    System.out.println("Codigo de barras en uso");
+                                                }else{
+                                                    Productos.get(indiceProd).setCodigoBarras(codBar);
+                                                    System.out.println("Operacion Exitosa!");
+                                                }
+                                                break;
+                                            case 10:
+                                                System.out.println("Ingrese la categoria: ");
+                                                catego = leer.nextLine();
+                                                Productos.get(indiceProd).setCategoria(catego);
+                                                System.out.println("Operacion realizada!");
+                                                break;
+                                            /*case 11:
+                                                System.out.println("Oferta Activada para "+Productos.get(indiceProd).getNombre());
+                                                Productos.get(indiceProd).ActivarOferta();
+                                                break;
+                                            case 12:
+                                                System.out.println("Oferta desactivada para: ");
+                                                break;
+                                            */
+                                            case 13:
+                                                System.out.println("Operacion Finalizada");
+                                                break;
+                                            default:
+                                                System.out.println("Opcion invalida");
+                                                
+                                        }
+                                    }while(modif!=13);
+                                }else{
+                                    System.out.println("ID no registrado");
+                                }
+                            }else{
+                                System.out.println("No hay Productos Registrados");
+                            }
+                            
                             break;
                         case 5:
                             System.out.println("Registrar Clientes");
+                            id = Clientes.size()+1;
+                            System.out.println("Ingresa el Nombre: ");
+                            nombre = leer.nextLine();
+                            do{
+                                System.out.println("Ingresa el Telefono: ");
+                                tel = leer.nextLine();
+                                Existe=false;
+                                for(int i=0;i<Clientes.size()&&!Existe;i++){
+                                    if(Clientes.get(i).getTelefono().equals(tel)){
+                                        Existe=true;
+                                    }
+                                }
+                                if(Existe){
+                                    System.out.println("Telefono Asignado a alguien mas\nIntente Otra Vez");
+                                }
+                            }while(Existe);
+                            do{
+                                Existe=false;
+                                System.out.println("Ingrese el correo: ");
+                                correo = leer.nextLine();
+                                for(int i=0;i<Clientes.size()&&!Existe;i++){
+                                    if(Clientes.get(i).getCorreo().equals(correo)){
+                                        Existe=true;
+                                    }
+                                }
+                                if(Existe){
+                                    System.out.println("Correo Asiganado a alguien mas\nIntente Otra Vez");
+                                }
+                            }while(Existe);
+                            do{
+                                Existe=false;
+                                System.out.println("Ingrese la Direccion:");
+                                direccion = leer.nextLine();
+                                for(int i=0;i<Clientes.size()&&!Existe;i++){
+                                    if(Clientes.get(i).getDireccion().equals(direccion)){
+                                        Existe=true;
+                                    }
+                                }
+                                if(Existe){
+                                    System.out.println("Direccion Asiganada a alguien mas\nintente Otra Vez");
+                                }
+                            }while(Existe);
+                            
+                                Cliente clien = new Cliente(id,nombre,tel,correo);
+                                clien.setDireccion(direccion);
+                                clien.setFechaR(DiaHoy);
+                                Clientes.add(clien);
+                                System.out.println("Cliente Registrado Exitosamente!");
+                                    
                             break;
                         case 6:
-                            System.out.println("Editar Cliente");
+                            int eleccion=0;
+                            if(!Clientes.isEmpty()){
+                                System.out.println("Editar Cliente");
+                                System.out.println("Ingresa el ID del Cliente:");
+                                id = leer.nextInt();
+                                leer.nextLine();
+                                ExistClien=false;
+                                indiceCliente=0;
+                                for(int i=0;i<Clientes.size()&&!ExistClien;i++){
+                                    if(Clientes.get(i).getId()==id){
+                                        ExistClien=true;
+                                        indiceCliente=i;
+                                    }
+                                }
+                                if(ExistClien){
+                                    do{
+                                        System.out.println("Seleccione una opcion para modificar");
+                                        System.out.println("1- Nombre");
+                                        System.out.println("2- Correo");
+                                        System.out.println("3- Telefono");
+                                        System.out.println("4- Direccion:");
+                                        System.out.println("5- Terminar");
+                                        eleccion = leer.nextInt();
+                                        leer.nextLine();
+                                        switch(eleccion){
+                                            case 1:
+                                                System.out.println("Ingrese el Nuevo Nombre:");
+                                                nombre = leer.nextLine();
+                                                Clientes.get(indiceCliente).setNombre(nombre);
+                                                System.out.println("Modificacion Exitosa!");
+                                                break;
+                                            case 2://agregar verificacion
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingrese el Nuevo Correo:");
+                                                    correo = leer.nextLine();
+                                                    Clientes.get(indiceCliente).setCorreo("");
+                                                    for(int i=0;i<Clientes.size()&&!Existe;i++){
+                                                        if(Clientes.get(i).getCorreo().equals(correo)){
+                                                            Existe=true;
+                                                        }
+                                                    }
+                                                    if(Existe){
+                                                        System.out.println("Correo Asignado a Alguien mas\nIntente nuevamente");
+                                                    }else{
+                                                        Clientes.get(indiceCliente).setCorreo(correo);
+                                                        System.out.println("Modificacion Exitosa!");
+                                                    }
+                                                }while(Existe);
+                                                break;
+                                            case 3:
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingrese el Nuevo Telefono:");
+                                                    tel = leer.nextLine();
+                                                    Clientes.get(indiceCliente).setTelefono("");
+                                                    for(int i=0;i<Clientes.size()&&!Existe;i++){
+                                                        if(Clientes.get(i).getTelefono().equals(tel)){
+                                                            Existe=true;
+                                                        }
+                                                    }
+                                                    if(Existe){
+                                                        System.out.println("Telefono Asignado a Alguien mas\nIntente nuevamente");
+                                                    }else{
+                                                        Clientes.get(indiceCliente).setTelefono(tel);
+                                                        System.out.println("Modificacion Exitosa!");
+                                                    }
+                                                }while(Existe);
+                                                break;
+                                            case 4:
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingrese la Nueva Direccion:");
+                                                    direccion = leer.nextLine();
+                                                    Clientes.get(indiceCliente).setDireccion("");
+                                                    for(int i=0;i<Clientes.size()&&!Existe;i++){
+                                                        if(Clientes.get(i).getDireccion().equals(direccion)){
+                                                            Existe=true;
+                                                        }
+                                                    }
+                                                    if(Existe){
+                                                        System.out.println("Direccion Asignada a Alguien mas\nIntente nuevamente");
+                                                    }else{
+                                                        Clientes.get(indiceCliente).setDireccion(direccion);
+                                                        System.out.println("Modificacion Exitosa!");
+                                                    }
+                                                }while(Existe);
+                                                break;
+                                            case 5:
+                                                System.out.println("Modificaciones Terminadas");
+                                                break;
+                                            default:
+                                                System.out.println("Opcion Invalida");
+                                        }
+                                    }while(eleccion!=5);
+                                }else{
+                                    System.out.println("ID no encontrado");
+                                }
+                            }else{
+                                System.out.println("No hay Clientes Registrados: ");
+                            }
+                            
                             break;
-                        case 7:
+                        case 7://buscar y mostrar
                             System.out.println("Consultar Producto");
                                 if(!Productos.isEmpty()){
                                     for(Producto producto:Productos)
