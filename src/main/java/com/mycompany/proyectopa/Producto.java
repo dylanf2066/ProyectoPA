@@ -11,17 +11,16 @@ import java.time.*;
 public class Producto {
     private int ID;
     private String Nombre;
-    private String Descripcion;
+    private String Descripcion;//
     private double Precio;
     private double PrecioOferta;
-    private String InicioOferta;
-    private String FinOferta;
+    private LocalDate InicioOferta;//= LocalDate.now();
+    private LocalDate FinOferta;//=LocalDate.now();
     private int Stock;
-    private String Caducidad;
+    private LocalDate Caducidad;
     private String Categoria;
-    private long CodigoBarras;
-    private boolean Activ;
-    
+    private long CodigoBarras;//
+    private boolean Activ;//
     
     
     
@@ -29,11 +28,24 @@ public class Producto {
         Stock-=cantidad;
     }
     
-    public void DesactivarOferta(){}
+    public boolean DesactivarOferta(){
+        return Activ=false;
+    }
     
-    public void ActivarOferta(){}
+    public boolean ActivarOferta(){
+        return Activ = true;
+    }
     
-    public void MostrarInfoProd(){}
+    public void MostrarInfoProd(){
+        System.out.println("PRODUCTO");
+        System.out.println(ID +". "+ Nombre);
+        System.out.println("Codigó: "+CodigoBarras);
+        System.out.println("Caducidad: " + Caducidad);
+        if(ActivarOferta()){
+            System.out.println("Inicio de oferta: "+InicioOferta);
+            System.out.println("Fin de oferta: "+FinOferta);
+        }
+    }
     
     public void setID(int ID){
         this.ID = ID;
@@ -65,16 +77,16 @@ public class Producto {
     public double getOfertaPrecio(){
         return PrecioOferta;
     }
-    public void setIncOfer(String IncioOferta){
-        this.InicioOferta = InicioOferta;
+    public void setIncOfer(int y, int m, int d){
+        this.InicioOferta = LocalDate.of(y,m,d);
     }
-    public String getIncOfer(){
+    public LocalDate getIncOfer(){
         return InicioOferta;
     }
-    public void setFinOfer(String FinOferta){
-        this.FinOferta = FinOferta;
+    public void setFinOfer(int y, int m,int d){
+        this.FinOferta = LocalDate.of(y,m,d);
     }
-    public String getFinOfer(){
+    public LocalDate getFinOfer(){
         return FinOferta;
     }
     public void setActivOfer(Boolean Activ){
@@ -89,10 +101,10 @@ public class Producto {
     public int getStock(){
         return Stock;
     }
-    public void setCaducidad(String Caducidad){
-        this.Caducidad = Caducidad;
+    public void setCaducidad(int y,int m,int d){
+        this.Caducidad = LocalDate.of(y, m, d);
     }
-    public String getCaducidad(){
+    public LocalDate getCaducidad(){
         return Caducidad;
     }
     public void setCategoria(String Categoria){
