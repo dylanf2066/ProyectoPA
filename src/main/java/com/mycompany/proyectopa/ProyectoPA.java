@@ -57,40 +57,7 @@ public class ProyectoPA {
         System.out.println("9- Salir");
     }
     
-    //cuando se llama a registrar pruducto debemos pasarle el scanner
-    /*public static void RegistrarProducto(Scanner lectorLocal){
-        String nom;
-        ArrayList<Producto> Productos = new ArrayList<>();
-        boolean ExistProd=false;
-        int id,stock;
-        System.out.println("-----------------------------------");
-        System.out.println("Registrar Producto:");
-        System.out.println("Ingrese el ID para el producto: ");
-        id = lectorLocal.nextInt();
-        for(int i=0;i<Productos.size()&&!ExistProd;i++){
-            if(Productos.get(i).getID()==id){
-                ExistProd=true;
-            }
-        }
-        if(ExistProd){
-            System.out.println("ID en uso");
-        }else{
-            System.out.println("Ingresa el nombre del producto:");
-            nom = lectorLocal.nextLine();
-            do{
-                System.out.println("Ingrese la cantidad para inventario: ");
-                stock = lectorLocal.nextInt();
-                if(stock>0){
-                    
-                }else{
-                    System.out.println("Cantidad Invalida.\n Intente otra vez");
-                }   
-            }while(stock<=0);   
-        }
-            
-        }
-        
-    }*/
+    
     public static void main(String[] args) {
            Scanner leer = new Scanner(System.in);
            Empleado Admin = new Empleado(28941, "Admin","911","Correo@gmail");
