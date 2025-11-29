@@ -278,6 +278,7 @@ public class ProyectoPA {
                                                     do{
                                                         System.out.println("Ingrese el nuevo Telefono");
                                                         tel = leer.nextLine();
+                                                        Empleados.get(indiceVendedor).setTelefono("");
                                                         Existe=false;
                                                         for(int i=0;i<Empleados.size()&&!Existe;i++){
                                                             if(Empleados.get(i).getTelefono().equals(tel)){
@@ -296,6 +297,7 @@ public class ProyectoPA {
                                                     do{
                                                         System.out.println("Ingrese el nuevo Correo");
                                                         correo = leer.nextLine();
+                                                        Empleados.get(indiceProveedor).setCorreo("");
                                                         Existe=false;
                                                         for(int i=0;i<Empleados.size()&&!Existe;i++){
                                                             if(Empleados.get(i).getCorreo().equals(correo)){
@@ -314,6 +316,7 @@ public class ProyectoPA {
                                                     do{
                                                         System.out.println("Ingrese el nuevo nombre de usuario");
                                                         nameUser = leer.nextLine();
+                                                        Empleados.get(indiceVendedor).setUsuario("");
                                                         Existe=false;
                                                         for(int i=0;i<Empleados.size()&&!Existe;i++){
                                                             if(Empleados.get(i).getUsuario().equals(nameUser)){
@@ -703,6 +706,7 @@ public class ProyectoPA {
                                             case 9:
                                                 System.out.println("Ingrese el codigo de barras");
                                                 codBar = leer.nextLong();
+                                                Productos.get(indiceProd).setCodigoBarras(0);
                                                 ExistCodBar=false;
                                                 for(int i=0;i<Productos.size()&&!ExistCodBar;i++){
                                                     if(Productos.get(i).getCodigoBarras()==codBar){
@@ -776,11 +780,63 @@ public class ProyectoPA {
                             }else{
                                 System.out.println("No hay productos registrados");
                             }
-                            
-                            
                             break;
                         case 9:
                             System.out.println("Registrar Proveedores");
+                            id = Proveedores.size()+1;
+                            System.out.println("Ingrese el nombre: ");
+                            nombre = leer.nextLine();
+                            System.out.println("Ingresa el nombre de la empresa:");
+                            empresa = leer.nextLine();
+                            do{
+                                Existe=false;
+                                System.out.println("Ingrese el correo:");
+                                correo = leer.nextLine();
+                                for(int i=0;i<Proveedores.size()&&!Existe;i++){
+                                    if(Proveedores.get(i).getCorreo().equals(correo)){
+                                        Existe=true;
+                                    }
+                                }
+                                if(Existe){
+                                    System.out.println("Correo ya registrado\n Intente Nuevamente");//checar por que en la edicion primero se limpie el correo registrado para que en la busqueda no lo compare con el de el mismo, al igual que con las demas cadenas que se verifican, telefono y todas esas 
+                                }
+                            }while(Existe);
+                            do{
+                                Existe=false;
+                                System.out.println("Ingrese el telefono: ");
+                                tel = leer.nextLine();
+                                for(int i=0;i<Proveedores.size()&&!Existe;i++){
+                                    if(Proveedores.get(i).getTelefono().equals(tel)){
+                                        Existe=true;
+                                    }
+                                }
+                                if(Existe){
+                                    System.out.println("Telefono ya registrado\n Intente nuevamente");
+                                }
+                            }while(Existe);
+                            do{
+                                Existe=false;
+                                System.out.println("Ingresa la direccion");
+                                direccion = leer.nextLine();
+                                for(int i=0;i<Proveedores.size()&&!Existe;i++){
+                                    if(Proveedores.get(i).getDireccion().equals(direccion)){
+                                        Existe=true;
+                                    }
+                                }
+                                if(Existe){
+                                    System.out.println("Alguien mas ya usa esa direccion");
+                                }
+                            }while(Existe);
+                            System.out.println("Ingrese el Tipo de Producto: ");
+                            catego = leer.nextLine();
+                            
+                            Proveedor Provee = new Proveedor(id,nombre,tel,correo);
+                            Provee.setNombreEmpresa(empresa);
+                            Provee.setDireccion(direccion);
+                            Provee.setTipoProducto(catego);
+                            System.out.println("Proveedor Registrado");
+                            Proveedores.add(Provee);
+                            
                             break;
                         case 10:
                             if(!Proveedores.isEmpty()){
@@ -817,16 +873,41 @@ public class ProyectoPA {
                                                 System.out.println("Operacion Exitosa!");
                                                 break;
                                             case 2:
-                                                System.out.println("ingrese el nuevo Telefono: ");
-                                                tel = leer.nextLine();
-                                                Proveedores.get(indiceProveedor).setTelefono(tel);
-                                                System.out.println("Operacion Exitosa!");
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingrese el nuevo telefono: ");
+                                                    tel = leer.nextLine();
+                                                    Proveedores.get(indiceProveedor).setTelefono("");
+                                                    for(int i=0;i<Proveedores.size()&&!Existe;i++){
+                                                        if(Proveedores.get(i).getTelefono().equals(tel)){
+                                                        Existe=true;
+                                                        }
+                                                    }
+                                                    if(!Existe){
+                                                        Proveedores.get(indiceProveedor).setTelefono(tel);
+                                                        System.out.println("Operacion Exitosa!");
+                                                    }else{
+                                                        System.out.println("Telefono Asignado a alguien mas\n Use otro");
+                                                    }
+                                                }while(Existe);
                                                 break;
                                             case 3:
-                                                System.out.println("Ingrese el nuevo Correo");
-                                                correo = leer.nextLine();
-                                                Proveedores.get(indiceProveedor).setCorreo(correo);
-                                                System.out.println("Operacion Exitosa!");
+                                                do{
+                                                    Existe=false;                                                
+                                                    System.out.println("Ingrese el nuevo Correo");
+                                                    correo = leer.nextLine();
+                                                    for(int i=0;i<Proveedores.size()&&!Existe;i++){
+                                                        if(Proveedores.get(i).equals(correo)){
+                                                            Existe=true;
+                                                        }
+                                                    }
+                                                    if(!Existe){
+                                                        Proveedores.get(indiceProveedor).setCorreo(correo);
+                                                        System.out.println("Operacion Exitosa!!");
+                                                    }else{
+                                                        System.out.println("Correo Asignado a alguien mas\n Use otro");
+                                                    }
+                                                }while(Existe);
                                                 break;
                                             case 4:
                                                 System.out.println("Ingrese la nueva empresa: ");
@@ -835,10 +916,23 @@ public class ProyectoPA {
                                                 System.out.println("Operacion Exitosa!");
                                                 break;
                                             case 5:
-                                                System.out.println("Ingrese la nueva Direccion: ");
-                                                direccion = leer.nextLine();
-                                                Proveedores.get(indiceProveedor).setDireccion(direccion);
-                                                System.out.println("Operacion Exitosa!");
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingrese la nueva Direccion: ");
+                                                    direccion = leer.nextLine();
+                                                    for(int i=0;i<Proveedores.size()&&!Existe;i++){
+                                                        if(Proveedores.get(i).getDireccion().equals(direccion)){
+                                                            Existe=true;
+                                                        }
+                                                    }
+                                                    if(Existe){
+                                                        System.out.println("Direccion Asignada a alguien mas\nUse otra");
+                                                    }else{
+                                                        Proveedores.get(indiceProveedor).setDireccion(direccion);
+                                                    }
+                                                    Proveedores.get(indiceProveedor).setDireccion(direccion);
+                                                    System.out.println("Operacion Exitosa!");
+                                                }while(Existe);
                                                 break;
                                             case 6:
                                                 System.out.println("Ingrese el nuevo tipo de Productos: ");
