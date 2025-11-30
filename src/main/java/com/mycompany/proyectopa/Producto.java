@@ -38,10 +38,15 @@ public class Producto {
     
     public void MostrarInfoProd(){
         System.out.println("PRODUCTO");
-        System.out.println(ID +". "+ Nombre);
-        System.out.println("Codigó: "+CodigoBarras);
+        System.out.println(ID +" : "+ Nombre);
+        System.out.println("Codigo: "+CodigoBarras);
         System.out.println("Caducidad: " + Caducidad);
-        if(ActivarOferta()){
+        System.out.println("Descripcion: "+Descripcion);
+        System.out.println("Precio: "+Precio);
+        System.out.println("Cantidad en Almacen: "+Stock);
+        System.out.println("Proveedor Asignado: "+Provee.getNombre());
+        if(Activ){
+            System.out.println("Precio de oferta"+PrecioOferta);
             System.out.println("Inicio de oferta: "+InicioOferta);
             System.out.println("Fin de oferta: "+FinOferta);
         }
