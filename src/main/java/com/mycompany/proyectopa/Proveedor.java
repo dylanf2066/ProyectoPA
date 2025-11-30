@@ -58,4 +58,7 @@ public class Proveedor extends Persona{
             }
         }
     }
+    public ArrayList<Producto> getLista(){
+        return Productos;
+    }
 }

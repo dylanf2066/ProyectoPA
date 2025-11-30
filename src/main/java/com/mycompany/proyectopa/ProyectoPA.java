@@ -98,14 +98,14 @@ public class ProyectoPA {
            LocalDate DiaHoy = LocalDate.now();
         
            do{
-               LLamarAdmin=false;
-               ExistNameUser = false;
-               ExistPasswordUser = false;
-            CerrarPrograma=false;
-            System.out.println("Introduzca su Nombre de Usuario");
-            nameUser = leer.nextLine();
-            System.out.println("Introduzca su Password");
-            password = leer.nextLine();
+                LLamarAdmin=false;
+                ExistNameUser = false;
+                ExistPasswordUser = false;
+                CerrarPrograma=false;
+                System.out.println("Introduzca su Nombre de Usuario");
+                nameUser = leer.nextLine();
+                System.out.println("Introduzca su Password");
+                password = leer.nextLine();
             
             if(Admin.getNombre().equals(nameUser)&&Admin.getContraseña().equals(password)){
                 LLamarAdmin=true;
@@ -393,154 +393,193 @@ public class ProyectoPA {
                             }
                             break;
                         case 5:
-                            do{
-                                System.out.println("Registrar Productos");
-                                //System.out.println("Ingrese el id para el producto: ");
-                                id = Productos.size()+1;
-                                //leer.nextLine();
-                                
-                                    Producto Articulo = new Producto();
-                                    Articulo.setID(id);
-                                    System.out.println("Ingresa el nombre del producto:");
-                                    nombre = leer.nextLine();
-                                    Articulo.setNombre(nombre);
-                                    do{
-                                        System.out.println("Ingrese la cantidad para inventario: ");
-                                        stock = leer.nextInt();
-                                        leer.nextLine();
-                                        if(stock>0){
-                                            Articulo.setStock(stock);
-                                        }else{
-                                            System.out.println("Cantidad Invalida\n Introduzca los datos nuevamente");
-                                        }
-                                    }while(stock<=0);
-                                    
-                                    do{
-                                        System.out.println("Ingrese el precio del producto");
-                                        prec=leer.nextDouble();  
-                                        if(prec<0){
-                                            System.out.println("Precio Invalido intente nuevamente:");
-                                        }else{
-                                            Articulo.setNormalPrecio(prec);
-                                        }
-                                    }while(prec<0);   
-                                        
-                                    System.out.println("Su producto tendra una oferta activa? 1-Si 2-No ");
-                                    ActOferta = leer.nextInt();
+                            if(Proveedores.isEmpty()){
+                                System.out.println("Se necesitan Proveedores Para Registrar Productos");
+                            }else{
+                                do{
+                                    System.out.println("Registrar Productos");
 
-                                    if(ActOferta==1){
+                                    id = Productos.size()+1;
+
+
+                                        Producto Articulo = new Producto();
+                                        Articulo.setID(id);
+                                        System.out.println("Ingresa el nombre del producto:");
+                                        nombre = leer.nextLine();
+                                        Articulo.setNombre(nombre);
                                         do{
-                                            System.out.println("Ingrese el precio para su oferta:");
-                                            precOFER=leer.nextDouble();
-                                            if(precOFER<=0){
+                                            System.out.println("Ingrese la cantidad para inventario: ");
+                                            stock = leer.nextInt();
+                                            leer.nextLine();
+                                            if(stock>0){
+                                                Articulo.setStock(stock);
+                                            }else{
+                                                System.out.println("Cantidad Invalida\n Introduzca los datos nuevamente");
+                                            }
+                                        }while(stock<=0);
+
+                                        do{
+                                            System.out.println("Ingrese el precio del producto");
+                                            prec=leer.nextDouble();  
+                                            if(prec<0){
                                                 System.out.println("Precio Invalido intente nuevamente:");
                                             }else{
-                                                Articulo.setOfertaPrecio(precOFER);
+                                                Articulo.setNormalPrecio(prec);
                                             }
-                                        }while(precOFER<=0);
-                                        
-                                        do{
-                                            Existe=false;
-                                            System.out.println("Ingrese la fecha de inicio de oferta");
-                                            System.out.println("Año: ");
-                                            y = leer.nextInt();
-                                            System.out.println("Mes: ");
-                                            m = leer.nextInt();
-                                            System.out.println("Dia: ");
-                                            d = leer.nextInt();
-                                            leer.nextLine();
-                                            if(y>0&&m>0&&d>0){
-                                                Articulo.setIncOfer(y, m, d);
-                                                Existe=true;
-                                            }else{
-                                                System.out.println("Fecha Incorrecta\n Intente Nuevamente");
-                                            }
-                                        }while(!Existe);
-                                        
-                                        do{
-                                            Existe=false;
-                                            System.out.println("Ingrese la fecha de fin de oferta");
-                                            System.out.println("Año: ");
-                                            y = leer.nextInt();
-                                            System.out.println("Mes: ");
-                                            m = leer.nextInt();
-                                            System.out.println("Dia: ");
-                                            d = leer.nextInt();
-                                            leer.nextLine();
-                                            
-                                            if(y>0&&m>0&&d>0){
-                                                LocalDate fecha = LocalDate.of(y, m, d);
-                                                if(fecha.isAfter(Articulo.getIncOfer())){
-                                                    Articulo.setFinOfer(y, m, d);
+                                        }while(prec<0);   
+
+                                        System.out.println("Su producto tendra una oferta activa? 1-Si 2-No ");
+                                        ActOferta = leer.nextInt();
+
+                                        if(ActOferta==1){
+                                            do{
+                                                System.out.println("Ingrese el precio para su oferta:");
+                                                precOFER=leer.nextDouble();
+                                                if(precOFER<=0){
+                                                    System.out.println("Precio Invalido intente nuevamente:");
                                                 }else{
-                                                    System.out.println("La fecha debe ser despues de la fecha de activacion!!");
-                                                    Existe = true;
+                                                    Articulo.setOfertaPrecio(precOFER);
+                                                }
+                                            }while(precOFER<=0);
+
+                                            do{
+                                                Existe=false;
+                                                System.out.println("Ingrese la fecha de inicio de oferta");
+                                                System.out.println("Año: ");
+                                                y = leer.nextInt();
+                                                System.out.println("Mes: ");
+                                                m = leer.nextInt();
+                                                System.out.println("Dia: ");
+                                                d = leer.nextInt();
+                                                leer.nextLine();
+                                                if(y>0&&(m>=1&&m<=12)){//año mayor a 0, mes entre 1 y 12, y dia dentro del rango de dias del mes
+                                                    if(d>=1&&d<=YearMonth.of(y, m).lengthOfMonth()){
+                                                        Articulo.setIncOfer(y, m, d);
+                                                        Existe=true;
+                                                    }else{
+                                                        System.out.println("Fecha Incorrecta");
+                                                    }
+                                                }else{
+                                                    System.out.println("Fecha Incorrecta\n Intente Nuevamente");
+                                                }
+                                            }while(!Existe);
+
+                                            do{
+                                                Existe=false;
+                                                System.out.println("Ingrese la fecha de fin de oferta");
+                                                System.out.println("Año: ");
+                                                y = leer.nextInt();
+                                                System.out.println("Mes: ");
+                                                m = leer.nextInt();
+                                                System.out.println("Dia: ");
+                                                d = leer.nextInt();
+                                                leer.nextLine();
+
+                                                if(y>0&&(m>=1&&m<=12)){
+                                                    if(d>=1&&d<=YearMonth.of(y, m).lengthOfMonth()){
+                                                        LocalDate fecha = LocalDate.of(y, m, d);
+                                                        if(fecha.isAfter(Articulo.getIncOfer())){
+                                                            Articulo.setFinOfer(y, m, d);
+                                                        }else{
+                                                            System.out.println("La fecha debe ser despues de la fecha de activacion!!");
+                                                            Existe = true;
+                                                        }
+                                                    }else{
+                                                        System.out.println("Fecha Invalida");
+                                                    }
+                                                }else{
+                                                    System.out.println("Fecha Incorrecta");
+                                                }
+                                            }while(Existe);
+                                            //Activando oferta
+                                            Articulo.ActivarOferta();
+
+
+                                        }else if(ActOferta==2){
+                                            //se desctiva por prevencion
+                                            Articulo.DesactivarOferta();
+                                            System.out.println("Producto sin oferta activa");
+                                        }else{
+                                            System.out.println("Opcion Invalida");
+                                        }
+
+                                        System.out.println("Ingrese la categoria");
+                                        catego = leer.nextLine();
+                                        Articulo.setCategoria(catego);
+
+                                        do{
+                                            Existe=false;
+                                            System.out.println("Ingresa la fecha de caducidad");
+                                            System.out.println("Año: ");
+                                            y = leer.nextInt();
+                                            System.out.println("Mes: ");
+                                            m = leer.nextInt();
+                                            System.out.println("Dia: ");
+                                            d = leer.nextInt();
+                                            leer.nextLine();
+                                            if(y>0&&(m>=1&&m<=12)){
+                                                if(d>=1&&d<=YearMonth.of(y, m).lengthOfMonth()){
+                                                    LocalDate Cadu = LocalDate.of(y, m, d);
+                                                    if(Cadu.isAfter(DiaHoy)){
+                                                        Articulo.setCaducidad(y,m,d);
+                                                        Existe=true;
+                                                    }else{
+                                                        System.out.println("No puedes registrar productos vencidos");
+                                                    }
+                                                }else{
+                                                    System.out.println("Fecha Invalida");
                                                 }
                                             }else{
-                                                System.out.println("Fecha Incorrecta");
+                                                System.out.println("Fecha Invalida");
                                             }
-                                        }while(Existe);
-                                        //System.out.println("La oferta se activa automaticamente, para desactivarla vaya a la opcion en el menu");
-                                        //Articulo.ActivarOferta();
-                                        
-                                    }else if(ActOferta==2){
-                                        System.out.println("Producto sin oferta activa");
-                                    }else{
-                                        System.out.println("Opcion Invalida");
-                                    }
+                                        }while(!Existe);
 
-                                    System.out.println("Ingrese la categoria");
-                                    catego = leer.nextLine();
-                                    Articulo.setCategoria(catego);
-                                    
-                                    do{
-                                        Existe=false;
-                                        System.out.println("Ingresa la fecha de caducidad");
-                                        System.out.println("Año: ");
-                                        y = leer.nextInt();
-                                        System.out.println("Mes: ");
-                                        m = leer.nextInt();
-                                        System.out.println("Dia: ");
-                                        d = leer.nextInt();
-                                        leer.nextLine();
-                                        if(y>0&&m>0&&d>0){
-                                            LocalDate Cadu = LocalDate.of(y, m, d);
-                                            if(Cadu.isAfter(DiaHoy)){
-                                                Articulo.setCaducidad(y,m,d);
-                                                Existe=true;
+
+                                        System.out.println("Ingresa la descripcion");
+                                        descrip = leer.nextLine();
+                                        Articulo.setDescripcion(descrip);
+
+                                        do{
+                                            System.out.println("Ingresa el codigo de barras: ");
+                                            codBar = leer.nextLong();
+                                            ExistCodBar = false;
+                                            for(int i =0;i<Productos.size()&&!ExistCodBar;i++){
+                                                if(Productos.get(i).getCodigoBarras()==codBar){
+                                                    ExistCodBar=true;
+                                                }
+                                            }
+                                            if(ExistCodBar){
+                                                System.out.println("Codigo de barras en uso");
                                             }else{
-                                                System.out.println("No puedes registrar productos vencidos");
+                                                Articulo.setCodigoBarras(codBar);
                                             }
-                                        }
-                                    }while(!Existe);
-                                        
-                                        
-                                    System.out.println("Ingresa la descripcion");
-                                    descrip = leer.nextLine();
-                                    Articulo.setDescripcion(descrip);
-                                        
-                                    do{
-                                        System.out.println("Ingresa el codigo de barras: ");
-                                        codBar = leer.nextLong();
-                                        ExistCodBar = false;
-                                        for(int i =0;i<Productos.size()&&!ExistCodBar;i++){
-                                            if(Productos.get(i).getCodigoBarras()==codBar){
-                                                ExistCodBar=true;
+                                        }while(ExistCodBar);
+
+                                        do{
+                                            Existe=false;
+                                            System.out.println("Ingrese el ID del Proveedor de este Producto: ");
+                                            id=leer.nextInt();
+                                            leer.nextInt();
+                                            for(int i=0;i<Proveedores.size()&&!Existe;i++){
+                                                if(Proveedores.get(i).getId()==id){
+                                                    Existe=true;
+                                                    Articulo.setProveedor(Proveedores.get(i));
+                                                    //se agrega el producto a la lista del proveedor
+                                                    Proveedores.get(i).setProducto(Articulo);
+                                                }
                                             }
-                                        }
-                                        if(ExistCodBar){
-                                            System.out.println("Codigo de barras en uso");
-                                        }else{
-                                            Articulo.setCodigoBarras(codBar);
-                                        }
-                                    }while(ExistCodBar);
-                                        
-                                    System.out.println("Producto Registrado");
-                                    Productos.add(Articulo);
-                                    System.out.println("Desea Agregar otro Producto? 1-Si, 2-No");
-                                    opcInt = leer.nextInt();
-                                    leer.nextLine();
-                            }while(opcInt!=2);
+                                            if(!Existe){
+                                                System.out.println("ID no registrado\nIntente Nuevamente");
+                                            }
+                                        }while(!Existe);
+
+                                        System.out.println("Producto Registrado");
+                                        Productos.add(Articulo);
+                                        System.out.println("Desea Agregar otro Producto? 1-Si, 2-No");
+                                        opcInt = leer.nextInt();
+                                        leer.nextLine();
+                                }while(opcInt!=2);
+                            }
                             break;
                         case 6:
                             if(!Productos.isEmpty()){
@@ -569,9 +608,10 @@ public class ProyectoPA {
                                         System.out.println("8- Fecha de Caducidad");
                                         System.out.println("9- Codigo de barras");
                                         System.out.println("10- Categoria ");
-                                        //System.out.println("11- Activar Oferta");
-                                        //System.out.println("12- Desactivar Oferta");
-                                        System.out.println("13- Terminar Edicion");
+                                        System.out.println("11- Activar Oferta");
+                                        System.out.println("12- Desactivar Oferta");
+                                        System.out.println("13- Cambiar Proveedor Asignado");
+                                        System.out.println("14- Terminar Edicion");
                                         modif = leer.nextInt();
                                         leer.nextLine();
                                         switch(modif){
@@ -622,10 +662,14 @@ public class ProyectoPA {
                                                     System.out.println("Dia: ");
                                                     d = leer.nextInt();
                                                     leer.nextLine();
-                                                    if(y>0&&m>0&&d>0){
-                                                        Productos.get(indiceProd).setIncOfer(y, m, d);
-                                                        System.out.println("Operacion Exitosa");
-                                                        Existe=true;
+                                                    if(y>0&&(m>=1&&m<=12)){
+                                                        if(d>=1&&d<=YearMonth.of(y, m).lengthOfMonth()){
+                                                            Productos.get(indiceProd).setIncOfer(y, m, d);
+                                                            System.out.println("Operacion Exitosa");
+                                                            Existe=true;
+                                                        }else{
+                                                            System.out.println("Fecha Invalida");
+                                                        }
                                                     }else{
                                                         System.out.println("Fecha incorrecta");
                                                     }
@@ -642,15 +686,21 @@ public class ProyectoPA {
                                                     System.out.println("Dia: ");
                                                     d = leer.nextInt();
                                                     leer.nextLine();
-                                                    if(y>0&&m>0&&d>0){
-                                                        LocalDate fecha = LocalDate.of(y, m, d);
-                                                        if(Productos.get(indiceVendedor).getIncOfer().isBefore(fecha)){
-                                                            Productos.get(indiceVendedor).setFinOfer(y, m, d);
-                                                            System.out.println("Operacion Exitosa!");
-                                                            Existe=true;
+                                                    if(y>0&&(m>=1&&m<=12)){
+                                                        if(d>=1&&d<=YearMonth.of(y, m).lengthOfMonth()){
+                                                            LocalDate fecha = LocalDate.of(y, m, d);
+                                                            if(Productos.get(indiceVendedor).getIncOfer().isBefore(fecha)){
+                                                                Productos.get(indiceVendedor).setFinOfer(y, m, d);
+                                                                System.out.println("Operacion Exitosa!");
+                                                                Existe=true;
+                                                            }else{
+                                                                System.out.println("La fecha debe ser despues de la fecha de activacion");
+                                                            }
                                                         }else{
-                                                            System.out.println("La fecha debe ser despues de la fecha de activacion");
+                                                            System.out.println("Fecha Invalida");
                                                         }
+                                                    }else{
+                                                        System.out.println("Fecha Invalida");
                                                     }
                                                 }while(!Existe);
                                                 break;
@@ -679,14 +729,20 @@ public class ProyectoPA {
                                                     System.out.println("Dia: ");
                                                     d = leer.nextInt();
                                                     leer.nextLine();
-                                                    if(y>0&&m>0&&d>0){
-                                                        LocalDate fecha = LocalDate.of(y, m, d);
-                                                        if(fecha.isAfter(DiaHoy)){
-                                                            Productos.get(indiceProd).setCaducidad(y, m, d);
-                                                            Existe=true;
+                                                    if(y>0&&(m>=1&&m<=12)){
+                                                        if(d>=1&&d<=YearMonth.of(y, m).lengthOfMonth()){
+                                                            LocalDate fecha = LocalDate.of(y, m, d);
+                                                            if(fecha.isAfter(DiaHoy)){
+                                                                Productos.get(indiceProd).setCaducidad(y, m, d);
+                                                                Existe=true;
+                                                            }else{
+                                                                System.out.println("No puedes registrar fechas vencidas");
+                                                            }
                                                         }else{
-                                                            System.out.println("No puedes registrar fechas vencidas");
+                                                            System.out.println("Fecha Invalida");
                                                         }
+                                                    }else{
+                                                        System.out.println("Fecha Invalida");
                                                     }
                                                 }while(!Existe);
                                                 break;
@@ -713,22 +769,41 @@ public class ProyectoPA {
                                                 Productos.get(indiceProd).setCategoria(catego);
                                                 System.out.println("Operacion realizada!");
                                                 break;
-                                            /*case 11:
+                                            case 11:
                                                 System.out.println("Oferta Activada para "+Productos.get(indiceProd).getNombre());
                                                 Productos.get(indiceProd).ActivarOferta();
                                                 break;
                                             case 12:
-                                                System.out.println("Oferta desactivada para: ");
+                                                System.out.println("Oferta desactivada para: "+Productos.get(indiceProd).getNombre());
+                                                Productos.get(indiceProd).DesactivarOferta();
                                                 break;
-                                            */
                                             case 13:
+                                                System.out.println("Cambiar Proveedor");
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingresa el ID del Nuevo Proveedor para "+Productos.get(indiceProd).getNombre());
+                                                    id = leer.nextInt();
+                                                    leer.nextInt();
+                                                    for(int i=0;i<Proveedores.size()&&!Existe;i++){
+                                                        if(Proveedores.get(i).getId()==id){
+                                                            Existe=true;
+                                                            Productos.get(indiceProd).setProveedor(Proveedores.get(i));
+                                                            System.out.println("El Proveedor "+Proveedores.get(i).getNombre()+" se Asigno a "+Productos.get(indiceProd).getNombre());
+                                                        }
+                                                    }
+                                                    if(!Existe){
+                                                        System.out.println("ID no registrado Intente Nuevamente");
+                                                    }
+                                                }while(!Existe);
+                                                break;
+                                            case 14:
                                                 System.out.println("Operacion Finalizada");
                                                 break;
                                             default:
                                                 System.out.println("Opcion invalida");
                                                 
                                         }
-                                    }while(modif!=13);
+                                    }while(modif!=14);
                                 }else{
                                     System.out.println("ID no registrado");
                                 }
@@ -746,8 +821,6 @@ public class ProyectoPA {
                             }else{
                                 System.out.println("No hay productos registrados");
                             }
-                            
-                            
                             break;
                         case 8:
                             if(!Productos.isEmpty()){
@@ -816,7 +889,7 @@ public class ProyectoPA {
                             }while(Existe);
                             System.out.println("Ingrese el Tipo de Producto: ");
                             catego = leer.nextLine();
-                            
+
                             Proveedor Provee = new Proveedor(id,nombre,tel,correo);
                             Provee.setNombreEmpresa(empresa);
                             Provee.setDireccion(direccion);
@@ -849,7 +922,8 @@ public class ProyectoPA {
                                         System.out.println("4- Empresa");
                                         System.out.println("5- Direccion");
                                         System.out.println("6- Tipo de producto");
-                                        System.out.println("7- Finalizar");
+                                        System.out.println("7- Eliminar un Producto que Surte");
+                                        System.out.println("8- Finalizar");
                                         opcion = leer.nextInt();
                                         switch(opcion){
                                             case 1:
@@ -933,12 +1007,33 @@ public class ProyectoPA {
                                                 System.out.println("Operacion Exitosa!");
                                                 break;
                                             case 7:
+                                                System.out.println("Eliminar Producto");
+                                                if(!Proveedores.get(indiceProveedor).getLista().isEmpty()){
+                                                    do{
+                                                        Existe=false;
+                                                        System.out.println("Ingresa el ID del producto a eliminar");
+                                                        id = leer.nextInt();
+                                                        for(int i=0;i<Proveedores.get(indiceProveedor).getLista().size()&&!Existe;i++){
+                                                                if(Proveedores.get(indiceProveedor).getLista().get(i).getID()==id){
+                                                                    Existe=true;
+                                                                    System.out.println("El producto "+Proveedores.get(indiceProveedor).getLista().remove(i).getNombre()+" se borro del Proveedor "+Proveedores.get(indiceProveedor).getNombre());
+                                                                }
+                                                        }
+                                                        if(!Existe){
+                                                            System.out.println("ID no encontrado intente nuevamente");
+                                                        }
+                                                    }while(!Existe);
+                                                }else{
+                                                    System.out.println(Proveedores.get(indiceProveedor).getNombre()+" NO tiene productos asignados");
+                                                }
+                                                break;
+                                            case 8:
                                                 System.out.println("Operacion Finalizada");
                                                 break;
                                             default:
                                                 System.out.println("Opcion Invalida;");
                                         }
-                                    }while(opcion!=7);
+                                    }while(opcion!=8);
                                 }else{
                                     System.out.println("ID no registrado");
                                 }
@@ -1001,12 +1096,13 @@ public class ProyectoPA {
                                         System.out.println("Empresa: "+Proveedores.get(i).getNombreEmpresa());
                                         System.out.println("Direccion: "+Proveedores.get(i).getDireccion());
                                         System.out.println("Tipo de Producto: "+Proveedores.get(i).getTipoProducto());
+                                        System.out.println("Productos que Surte: ");
+                                        Proveedores.get(indiceProveedor).getProductos();
                                     }
                                 }
                             }else{
                                 System.out.println("No hay proveedores Registrados");
                             }
-                            
                             break;
                         case 14:
                             System.out.println("Registrar Clientes");
@@ -1271,155 +1367,193 @@ public class ProyectoPA {
                             break;   
                         */
                         case 3:
-                            do{
-                                System.out.println("Registrar Productos");
-                                //System.out.println("Ingrese el id para el producto: ");
-                                id = Productos.size()+1;
-                                //leer.nextLine();
-                                
-                                    Producto Articulo = new Producto();
-                                    Articulo.setID(id);
-                                    System.out.println("Ingresa el nombre del producto:");
-                                    nombre = leer.nextLine();
-                                    Articulo.setNombre(nombre);
-                                    do{
-                                        System.out.println("Ingrese la cantidad para inventario: ");
-                                        stock = leer.nextInt();
-                                        leer.nextLine();
-                                        if(stock>0){
-                                            Articulo.setStock(stock);
-                                        }else{
-                                            System.out.println("Cantidad Invalida\n Introduzca los datos nuevamente");
-                                        }
-                                    }while(stock<=0);
-                                    
-                                    do{
-                                        System.out.println("Ingrese el precio del producto");
-                                        prec=leer.nextDouble();  
-                                        if(prec<0){
-                                            System.out.println("Precio Invalido intente nuevamente:");
-                                        }else{
-                                            Articulo.setNormalPrecio(prec);
-                                        }
-                                    }while(prec<0);   
-                                        
-                                    System.out.println("Su producto tendra una oferta activa? 1-Si 2-No ");
-                                    ActOferta = leer.nextInt();
+                            if(Proveedores.isEmpty()){
+                                System.out.println("Se necesitan Proveedores Para Registrar Productos");
+                            }else{
+                                do{
+                                    System.out.println("Registrar Productos");
 
-                                    if(ActOferta==1){
+                                    id = Productos.size()+1;
+
+
+                                        Producto Articulo = new Producto();
+                                        Articulo.setID(id);
+                                        System.out.println("Ingresa el nombre del producto:");
+                                        nombre = leer.nextLine();
+                                        Articulo.setNombre(nombre);
                                         do{
-                                            System.out.println("Ingrese el precio para su oferta:");
-                                            precOFER=leer.nextDouble();
-                                            if(precOFER<=0){
+                                            System.out.println("Ingrese la cantidad para inventario: ");
+                                            stock = leer.nextInt();
+                                            leer.nextLine();
+                                            if(stock>0){
+                                                Articulo.setStock(stock);
+                                            }else{
+                                                System.out.println("Cantidad Invalida\n Introduzca los datos nuevamente");
+                                            }
+                                        }while(stock<=0);
+
+                                        do{
+                                            System.out.println("Ingrese el precio del producto");
+                                            prec=leer.nextDouble();  
+                                            if(prec<0){
                                                 System.out.println("Precio Invalido intente nuevamente:");
                                             }else{
-                                                Articulo.setOfertaPrecio(precOFER);
+                                                Articulo.setNormalPrecio(prec);
                                             }
-                                        }while(precOFER<=0);
-                                        
-                                        do{
-                                            Existe=false;
-                                            System.out.println("Ingrese la fecha de inicio de oferta");
-                                            System.out.println("Año: ");
-                                            y = leer.nextInt();
-                                            System.out.println("Mes: ");
-                                            m = leer.nextInt();
-                                            System.out.println("Dia: ");
-                                            d = leer.nextInt();
-                                            leer.nextLine();
-                                            if(y>0&&m>0&&d>0){
-                                                Articulo.setIncOfer(y, m, d);
-                                                Existe=true;
-                                            }else{
-                                                System.out.println("Fecha Incorrecta\n Intente Nuevamente");
-                                            }
-                                        }while(!Existe);
-                                        
-                                        do{
-                                            Existe=false;
-                                            System.out.println("Ingrese la fecha de fin de oferta");
-                                            System.out.println("Año: ");
-                                            y = leer.nextInt();
-                                            System.out.println("Mes: ");
-                                            m = leer.nextInt();
-                                            System.out.println("Dia: ");
-                                            d = leer.nextInt();
-                                            leer.nextLine();
-                                            
-                                            if(y>0&&m>0&&d>0){
-                                                LocalDate fecha = LocalDate.of(y, m, d);
-                                                if(fecha.isAfter(Articulo.getIncOfer())){
-                                                    Articulo.setFinOfer(y, m, d);
+                                        }while(prec<0);   
+
+                                        System.out.println("Su producto tendra una oferta activa? 1-Si 2-No ");
+                                        ActOferta = leer.nextInt();
+
+                                        if(ActOferta==1){
+                                            do{
+                                                System.out.println("Ingrese el precio para su oferta:");
+                                                precOFER=leer.nextDouble();
+                                                if(precOFER<=0){
+                                                    System.out.println("Precio Invalido intente nuevamente:");
                                                 }else{
-                                                    System.out.println("La fecha debe ser despues de la fecha de activacion!!");
-                                                    Existe = true;
+                                                    Articulo.setOfertaPrecio(precOFER);
+                                                }
+                                            }while(precOFER<=0);
+
+                                            do{
+                                                Existe=false;
+                                                System.out.println("Ingrese la fecha de inicio de oferta");
+                                                System.out.println("Año: ");
+                                                y = leer.nextInt();
+                                                System.out.println("Mes: ");
+                                                m = leer.nextInt();
+                                                System.out.println("Dia: ");
+                                                d = leer.nextInt();
+                                                leer.nextLine();
+                                                if(y>0&&(m>=1&&m<=12)){
+                                                    if(d>=1&&d<=YearMonth.of(y, m).lengthOfMonth()){
+                                                        Articulo.setIncOfer(y, m, d);
+                                                        Existe=true;
+                                                    }else{
+                                                        System.out.println("Fecha Invalida");
+                                                    }
+                                                }else{
+                                                    System.out.println("Fecha Incorrecta\n Intente Nuevamente");
+                                                }
+                                            }while(!Existe);
+
+                                            do{
+                                                Existe=false;
+                                                System.out.println("Ingrese la fecha de fin de oferta");
+                                                System.out.println("Año: ");
+                                                y = leer.nextInt();
+                                                System.out.println("Mes: ");
+                                                m = leer.nextInt();
+                                                System.out.println("Dia: ");
+                                                d = leer.nextInt();
+                                                leer.nextLine();
+
+                                                if(y>0&&(m>0&&m<=12)){
+                                                    if(d>=1&&d<=YearMonth.of(y, m).lengthOfMonth()){
+                                                        LocalDate fecha = LocalDate.of(y, m, d);
+                                                        if(fecha.isAfter(Articulo.getIncOfer())){
+                                                            Articulo.setFinOfer(y, m, d);
+                                                        }else{
+                                                            System.out.println("La fecha debe ser despues de la fecha de activacion!!");
+                                                            Existe = true;
+                                                        }
+                                                    }else{
+                                                        System.out.println("Fecha Invalida");
+                                                    }
+                                                }else{
+                                                    System.out.println("Fecha Incorrecta");
+                                                }
+                                            }while(Existe);
+                                            //Activando oferta
+                                            Articulo.ActivarOferta();
+
+
+                                        }else if(ActOferta==2){
+                                            //se desctiva por prevencion
+                                            Articulo.DesactivarOferta();
+                                            System.out.println("Producto sin oferta activa");
+                                        }else{
+                                            System.out.println("Opcion Invalida");
+                                        }
+
+                                        System.out.println("Ingrese la categoria");
+                                        catego = leer.nextLine();
+                                        Articulo.setCategoria(catego);
+
+                                        do{
+                                            Existe=false;
+                                            System.out.println("Ingresa la fecha de caducidad");
+                                            System.out.println("Año: ");
+                                            y = leer.nextInt();
+                                            System.out.println("Mes: ");
+                                            m = leer.nextInt();
+                                            System.out.println("Dia: ");
+                                            d = leer.nextInt();
+                                            leer.nextLine();
+                                            if(y>0&&(m>=1&&m<=12)){
+                                                if(d>=1&&d<=YearMonth.of(y, m).lengthOfMonth()){
+                                                    LocalDate Cadu = LocalDate.of(y, m, d);
+                                                    if(Cadu.isAfter(DiaHoy)){
+                                                        Articulo.setCaducidad(y,m,d);
+                                                        Existe=true;
+                                                    }else{
+                                                        System.out.println("No puedes registrar productos vencidos");
+                                                    }
+                                                }else{
+                                                    System.out.println("Fecha Invalida");
                                                 }
                                             }else{
-                                                System.out.println("Fecha Incorrecta");
+                                                System.out.println("Fecha Invalida");
                                             }
-                                        }while(Existe);
-                                        //System.out.println("La oferta se activa automaticamente, para desactivarla vaya a la opcion en el menu");
-                                        //Articulo.ActivarOferta();
-                                        
-                                    }else if(ActOferta==2){
-                                        System.out.println("Producto sin oferta activa");
-                                    }else{
-                                        System.out.println("Opcion Invalida");
-                                    }
+                                        }while(!Existe);
 
-                                    System.out.println("Ingrese la categoria");
-                                    leer.nextLine();
-                                    catego = leer.nextLine();
-                                    Articulo.setCategoria(catego);
-                                    
-                                    do{
-                                        Existe=false;
-                                        System.out.println("Ingresa la fecha de caducidad");
-                                        System.out.println("Año: ");
-                                        y = leer.nextInt();
-                                        System.out.println("Mes: ");
-                                        m = leer.nextInt();
-                                        System.out.println("Dia: ");
-                                        d = leer.nextInt();
-                                        leer.nextLine();
-                                        if(y>0&&m>0&&d>0){
-                                            LocalDate Cadu = LocalDate.of(y, m, d);
-                                            if(Cadu.isAfter(DiaHoy)){
-                                                Articulo.setCaducidad(y,m,d);
-                                                Existe=true;
+
+                                        System.out.println("Ingresa la descripcion");
+                                        descrip = leer.nextLine();
+                                        Articulo.setDescripcion(descrip);
+
+                                        do{
+                                            System.out.println("Ingresa el codigo de barras: ");
+                                            codBar = leer.nextLong();
+                                            ExistCodBar = false;
+                                            for(int i =0;i<Productos.size()&&!ExistCodBar;i++){
+                                                if(Productos.get(i).getCodigoBarras()==codBar){
+                                                    ExistCodBar=true;
+                                                }
+                                            }
+                                            if(ExistCodBar){
+                                                System.out.println("Codigo de barras en uso");
                                             }else{
-                                                System.out.println("No puedes registrar productos vencidos");
+                                                Articulo.setCodigoBarras(codBar);
                                             }
-                                        }
-                                    }while(!Existe);
-                                        
-                                        
-                                    System.out.println("Ingresa la descripcion");
-                                    descrip = leer.nextLine();
-                                    Articulo.setDescripcion(descrip);
-                                        
-                                    do{
-                                        System.out.println("Ingresa el codigo de barras: ");
-                                        codBar = leer.nextLong();
-                                        ExistCodBar = false;
-                                        for(int i =0;i<Productos.size()&&!ExistCodBar;i++){
-                                            if(Productos.get(i).getCodigoBarras()==codBar){
-                                                ExistCodBar=true;
+                                        }while(ExistCodBar);
+
+                                        do{
+                                            Existe=false;
+                                            System.out.println("Ingrese el ID del Proveedor de este Producto: ");
+                                            id=leer.nextInt();
+                                            leer.nextInt();
+                                            for(int i=0;i<Proveedores.size()&&!Existe;i++){
+                                                if(Proveedores.get(i).getId()==id){
+                                                    Existe=true;
+                                                    Articulo.setProveedor(Proveedores.get(i));
+                                                    //se agrega el producto a la lista del proveedor
+                                                    Proveedores.get(i).setProducto(Articulo);
+                                                }
                                             }
-                                        }
-                                        if(ExistCodBar){
-                                            System.out.println("Codigo de barras en uso");
-                                        }else{
-                                            Articulo.setCodigoBarras(codBar);
-                                        }
-                                    }while(ExistCodBar);
-                                        
-                                    System.out.println("Producto Registrado");
-                                    Productos.add(Articulo);
-                                    System.out.println("Desea Agregar otro Producto? 1-Si, 2-No");
-                                    opcInt = leer.nextInt();
-                                    leer.nextLine();
-                            }while(opcInt!=2);
+                                            if(!Existe){
+                                                System.out.println("ID no registrado\nIntente Nuevamente");
+                                            }
+                                        }while(!Existe);
+
+                                        System.out.println("Producto Registrado");
+                                        Productos.add(Articulo);
+                                        System.out.println("Desea Agregar otro Producto? 1-Si, 2-No");
+                                        opcInt = leer.nextInt();
+                                        leer.nextLine();
+                                }while(opcInt!=2);
+                            }
                             break;
                         case 4:
                             if(!Productos.isEmpty()){
@@ -1448,9 +1582,10 @@ public class ProyectoPA {
                                         System.out.println("8- Fecha de Caducidad");
                                         System.out.println("9- Codigo de barras");
                                         System.out.println("10- Categoria ");
-                                        //System.out.println("11- Activar Oferta");
-                                        //System.out.println("12- Desactivar Oferta");
-                                        System.out.println("13- Terminar Edicion");
+                                        System.out.println("11- Activar Oferta");
+                                        System.out.println("12- Desactivar Oferta");
+                                        System.out.println("13- Cambiar Proveedor Asignado");
+                                        System.out.println("14- Terminar Edicion");
                                         modif = leer.nextInt();
                                         leer.nextLine();
                                         switch(modif){
@@ -1501,10 +1636,14 @@ public class ProyectoPA {
                                                     System.out.println("Dia: ");
                                                     d = leer.nextInt();
                                                     leer.nextLine();
-                                                    if(y>0&&m>0&&d>0){
-                                                        Productos.get(indiceProd).setIncOfer(y, m, d);
-                                                        System.out.println("Operacion Exitosa");
-                                                        Existe=true;
+                                                    if(y>0&&(m>=1&&m<=12)){
+                                                        if(d>=1&&d<=YearMonth.of(y, m).lengthOfMonth()){
+                                                            Productos.get(indiceProd).setIncOfer(y, m, d);
+                                                            System.out.println("Operacion Exitosa");
+                                                            Existe=true;
+                                                        }else{
+                                                            System.out.println("Fecha Invalida");
+                                                        }
                                                     }else{
                                                         System.out.println("Fecha incorrecta");
                                                     }
@@ -1521,15 +1660,21 @@ public class ProyectoPA {
                                                     System.out.println("Dia: ");
                                                     d = leer.nextInt();
                                                     leer.nextLine();
-                                                    if(y>0&&m>0&&d>0){
-                                                        LocalDate fecha = LocalDate.of(y, m, d);
-                                                        if(Productos.get(indiceVendedor).getIncOfer().isBefore(fecha)){
-                                                            Productos.get(indiceVendedor).setFinOfer(y, m, d);
-                                                            System.out.println("Operacion Exitosa!");
-                                                            Existe=true;
+                                                    if(y>0&&(m>=1&&m<=12)){
+                                                        if(d>=1&&d<=YearMonth.of(y, m).lengthOfMonth()){
+                                                            LocalDate fecha = LocalDate.of(y, m, d);
+                                                            if(Productos.get(indiceVendedor).getIncOfer().isBefore(fecha)){
+                                                                Productos.get(indiceVendedor).setFinOfer(y, m, d);
+                                                                System.out.println("Operacion Exitosa!");
+                                                                Existe=true;
+                                                            }else{
+                                                                System.out.println("La fecha debe ser despues de la fecha de activacion");
+                                                            }
                                                         }else{
-                                                            System.out.println("La fecha debe ser despues de la fecha de activacion");
+                                                            System.out.println("Fecha Invalida");
                                                         }
+                                                    }else{
+                                                        System.out.println("Fecha Invalida");
                                                     }
                                                 }while(!Existe);
                                                 break;
@@ -1558,14 +1703,20 @@ public class ProyectoPA {
                                                     System.out.println("Dia: ");
                                                     d = leer.nextInt();
                                                     leer.nextLine();
-                                                    if(y>0&&m>0&&d>0){
-                                                        LocalDate fecha = LocalDate.of(y, m, d);
-                                                        if(fecha.isAfter(DiaHoy)){
-                                                            Productos.get(indiceProd).setCaducidad(y, m, d);
-                                                            Existe=true;
+                                                    if(y>0&&(m>0&&m<=12)){
+                                                        if(d>=1&&d<=YearMonth.of(y, m).lengthOfMonth()){
+                                                            LocalDate fecha = LocalDate.of(y, m, d);
+                                                            if(fecha.isAfter(DiaHoy)){
+                                                                Productos.get(indiceProd).setCaducidad(y, m, d);
+                                                                Existe=true;
+                                                            }else{
+                                                                System.out.println("No puedes registrar fechas vencidas");
+                                                            }
                                                         }else{
-                                                            System.out.println("No puedes registrar fechas vencidas");
+                                                            System.out.println("Fecha Invalida");
                                                         }
+                                                    }else{
+                                                        System.out.println("Fecha Invalida");
                                                     }
                                                 }while(!Existe);
                                                 break;
@@ -1592,22 +1743,41 @@ public class ProyectoPA {
                                                 Productos.get(indiceProd).setCategoria(catego);
                                                 System.out.println("Operacion realizada!");
                                                 break;
-                                            /*case 11:
+                                            case 11:
                                                 System.out.println("Oferta Activada para "+Productos.get(indiceProd).getNombre());
                                                 Productos.get(indiceProd).ActivarOferta();
                                                 break;
                                             case 12:
-                                                System.out.println("Oferta desactivada para: ");
+                                                System.out.println("Oferta desactivada para: "+Productos.get(indiceProd).getNombre());
+                                                Productos.get(indiceProd).DesactivarOferta();
                                                 break;
-                                            */
                                             case 13:
+                                                System.out.println("Cambiar Proveedor");
+                                                do{
+                                                    Existe=false;
+                                                    System.out.println("Ingresa el ID del Nuevo Proveedor para "+Productos.get(indiceProd).getNombre());
+                                                    id = leer.nextInt();
+                                                    leer.nextInt();
+                                                    for(int i=0;i<Proveedores.size()&&!Existe;i++){
+                                                        if(Proveedores.get(i).getId()==id){
+                                                            Existe=true;
+                                                            Productos.get(indiceProd).setProveedor(Proveedores.get(i));
+                                                            System.out.println("El Proveedor "+Proveedores.get(i).getNombre()+" se Asigno a "+Productos.get(indiceProd).getNombre());
+                                                        }
+                                                    }
+                                                    if(!Existe){
+                                                        System.out.println("ID no registrado Intente Nuevamente");
+                                                    }
+                                                }while(!Existe);
+                                                break;
+                                            case 14:
                                                 System.out.println("Operacion Finalizada");
                                                 break;
                                             default:
                                                 System.out.println("Opcion invalida");
                                                 
                                         }
-                                    }while(modif!=13);
+                                    }while(modif!=14);
                                 }else{
                                     System.out.println("ID no registrado");
                                 }
@@ -1796,16 +1966,13 @@ public class ProyectoPA {
                                 if(ExistID){
                                     System.out.println("Datos del proveedor: ");
                                     System.out.println("Nombre:"+Proveedores.get(indiceProveedor).getNombre());
-                                    
                                     System.out.println("Telefono: "+Proveedores.get(indiceProveedor).getTelefono());
-                                    
                                     System.out.println("Correo: "+Proveedores.get(indiceProveedor).getCorreo());
-                                   
                                     System.out.println("Nombre de la empresa: "+Proveedores.get(indiceProveedor).getNombreEmpresa());
-                                    
                                     System.out.println("Ingrese la direccion: "+Proveedores.get(indiceProveedor).getDireccion());
-                                    
                                     System.out.println("Tipo de Producto: "+Proveedores.get(indiceProveedor).getTipoProducto());
+                                    System.out.println("Productos que Surte: ");
+                                    Proveedores.get(indiceProveedor).getProductos();
                                    
                                     
                                 }else{
@@ -1829,7 +1996,7 @@ public class ProyectoPA {
                     }
                 }while(opc!=9 && opc!= 10);
             }
-           }while(opc!=20);
+           }while(!CerrarPrograma);
            
            
     }
