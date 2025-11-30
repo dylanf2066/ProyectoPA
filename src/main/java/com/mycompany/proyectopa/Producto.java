@@ -21,7 +21,7 @@ public class Producto {
     private String Categoria;
     private long CodigoBarras;//
     private boolean Activ;//
-    
+    private Proveedor Provee;
     
     
     public void ReducirStock(int cantidad){
@@ -118,5 +118,11 @@ public class Producto {
     }
     public long getCodigoBarras(){
         return CodigoBarras;
+    }
+    public void setProveedor(Proveedor p){
+        this.Provee=p;
+    }
+    public Proveedor getProveedor(){
+        return this.Provee;
     }
 }
