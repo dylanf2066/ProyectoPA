@@ -185,8 +185,10 @@ public class ProyectoPA {
                                     System.out.println("Ingrese Nombre:");
                                     nombre = leer.nextLine();
                                     do{
-                                        System.out.println("Ingrese Telefono:");
-                                        tel = leer.nextLine();
+                                        do{
+                                            System.out.println("Ingrese Telefono:");
+                                            tel = leer.nextLine();
+                                        }while(tel.length()<8 && !tel.matches("^\\\\d+$"));
                                         Existe=false;
                                         for(int i=0;i<Empleados.size()&&!Existe;i++){
                                             if(Empleados.get(i).getTelefono().equals(tel)){
@@ -249,8 +251,20 @@ public class ProyectoPA {
                                     }while(!Existe);
                                 }
                                 System.out.println("Desea agregar otro empleado. 1-Si 2-No");
-                                opcInt = leer.nextInt();
-                                leer.nextLine();
+                                boolean error;
+                                do{
+                                    error =true;
+                                    if(leer.hasNextInt()){
+                                        opcInt = leer.nextInt();
+                                        leer.nextLine();
+                                        if (opcInt >= 1 && opcInt <= 2) { 
+                                            error = false;
+                                        }
+                                    }else{
+                                        leer.nextLine();
+                                        System.out.println("Ingrese 1 o 2");
+                                    }
+                                }while(error);
                             }while(opcInt!=2);
                             break;
                         case 2:
@@ -288,9 +302,12 @@ public class ProyectoPA {
                                                     break;
                                                 case 2:
                                                     do{
-                                                        System.out.println("Ingrese el nuevo Telefono");
-                                                        leer.nextLine();
-                                                        tel = leer.nextLine();
+                                                        do{
+                                                            System.out.println("Ingrese el nuevo Telefono");
+                                                            leer.nextLine();
+                                                            tel = leer.nextLine();
+                                                        }while(tel.length()==8 && tel.length()>0 && !tel.matches("^\\\\d+$"));
+                                                        
                                                         Empleados.get(indiceVendedor).setTelefono("");
                                                         Existe=false;
                                                         for(int i=0;i<Empleados.size()&&!Existe;i++){
@@ -894,8 +911,10 @@ public class ProyectoPA {
                             }while(Existe);
                             do{
                                 Existe=false;
-                                System.out.println("Ingrese el telefono: ");
-                                tel = leer.nextLine();
+                                do{
+                                    System.out.println("Ingresa el Telefono: ");
+                                    tel = leer.nextLine();
+                                }while(tel.length()<8 && !tel.matches("^\\\\d+$"));
                                 for(int i=0;i<Proveedores.size()&&!Existe;i++){
                                     if(Proveedores.get(i).getTelefono().equals(tel)){
                                         Existe=true;
@@ -967,9 +986,11 @@ public class ProyectoPA {
                                             case 2:
                                                 do{
                                                     Existe=false;
-                                                    System.out.println("Ingrese el nuevo telefono: ");
-                                                    leer.nextLine();
-                                                    tel = leer.nextLine();
+                                                    do{
+                                                        System.out.println("Ingrese el nuevo telefono: ");
+                                                        leer.nextLine();
+                                                        tel = leer.nextLine();
+                                                    }while(tel.length()<8 && !tel.matches("^\\\\d+$"));
                                                     Proveedores.get(indiceProveedor).setTelefono("");
                                                     for(int i=0;i<Proveedores.size()&&!Existe;i++){
                                                         if(Proveedores.get(i).getTelefono().equals(tel)){
@@ -1141,8 +1162,10 @@ public class ProyectoPA {
                             System.out.println("Ingresa el Nombre: ");
                             nombre = leer.nextLine();
                             do{
-                                System.out.println("Ingresa el Telefono: ");
-                                tel = leer.nextLine();
+                                do{
+                                    System.out.println("Ingresa el Telefono: ");
+                                    tel = leer.nextLine();
+                                }while(tel.length()==8 && tel.length()>0 && !tel.matches("^\\\\d+$"));
                                 Existe=false;
                                 for(int i=0;i<Clientes.size()&&!Existe;i++){
                                     if(Clientes.get(i).getTelefono().equals(tel)){
@@ -1243,8 +1266,11 @@ public class ProyectoPA {
                                             case 3:
                                                 do{
                                                     Existe=false;
-                                                    System.out.println("Ingrese el Nuevo Telefono:");
-                                                    tel = leer.nextLine();
+                                                    do{
+                                                        System.out.println("Ingrese el Nuevo Telefono:");
+                                                        tel = leer.nextLine();
+                                                    }while(tel.length()==8 && tel.length()>0 && !tel.matches("^\\\\d+$"));
+                                                    
                                                     Clientes.get(indiceCliente).setTelefono("");
                                                     for(int i=0;i<Clientes.size()&&!Existe;i++){
                                                         if(Clientes.get(i).getTelefono().equals(tel)){
@@ -1951,8 +1977,10 @@ public class ProyectoPA {
                             System.out.println("Ingresa el Nombre: ");
                             nombre = leer.nextLine();
                             do{
-                                System.out.println("Ingresa el Telefono: ");
-                                tel = leer.nextLine();
+                                do{
+                                    System.out.println("Ingresa el Telefono: ");
+                                    tel = leer.nextLine();
+                                }while(tel.length()<8 && tel.matches("^\\\\d+$¨"));
                                 Existe=false;
                                 for(int i=0;i<Clientes.size()&&!Existe;i++){
                                     if(Clientes.get(i).getTelefono().equals(tel)){
