@@ -1392,37 +1392,41 @@ public class ProyectoPA {
                             if(!Productos.isEmpty() && !Empleados.isEmpty() && !Clientes.isEmpty() ){
                                 System.out.println("Realizar Venta");
 
-                                System.out.println("Ingrese ID del cliente");
-                                int IdCliente = leer.nextInt();
+                                int IdCliente, IdVendedor;
 
-                                System.out.println("Ingrese ID del Vendedor");
-                                int IdVendedor = leer.nextInt();
+                                
 
-                                int i=0;
+                                
                                 boolean ExistCliente=false;
                                 ExistVendedor=false;
                                 Cliente clienteEncontrado = null;
                                 Empleado empleadoEncontrado = null;
 
                                 do{
-                                    if(IdCliente==Clientes.get(i).getId()){
-                                        ExistCliente=true;
-                                        clienteEncontrado=Clientes.get(i);
-                                    }else{
-                                        i++;
+                                    
+                                    System.out.println("Ingrese ID del cliente");
+                                    IdCliente = leer.nextInt();
+                                    for(int j=0;j<Clientes.size()&&!ExistCliente;j++){
+                                        if(IdCliente==Clientes.get(j).getId()){
+                                            ExistCliente=true;
+                                            
+                                            clienteEncontrado=Clientes.get(j);
+                                        }
                                     }
-                                }while(IdCliente!=Clientes.get(i).getId() && i<Clientes.size());
+                                }while(!ExistCliente);
                                 
-                                i=0;
+                                
                                
                                 do{
+                                    System.out.println("Ingrese ID del Vendedor");
+                                    IdVendedor = leer.nextInt();
+                                    for(int i=0;i<Empleados.size()&&!ExistCliente;i++){
                                         if(IdVendedor==Empleados.get(i).getId()){
                                             ExistVendedor=true;
                                             empleadoEncontrado = Empleados.get(i);
-                                        }else{
-                                            i++;
                                         }
-                                } while(IdVendedor!=Empleados.get(i).getId() && i<Empleados.size());
+                                    }
+                                } while(!ExistVendedor);
                                 
                                 
                                 if(ExistCliente==true && ExistVendedor==true){
@@ -1440,38 +1444,42 @@ public class ProyectoPA {
                                             error=false;
                                             System.out.println("\n Productos Disponibles:");
                                             
+                                            //mostrar todos los productos o cambiar por lector de cod barras
                                             for(Producto p : Productos) {
                                                 System.out.println(p.getID() + ". " + p.getNombre() +" - $" + p.getNormalPrecio() + " Stock: " + p.getStock());
                                             }
-                                            
-                                           
-                                            System.out.println("Ingrese el id del producto:");
-
-                                            int idproducto = leer.nextInt();
                                             boolean productoExist=false;
-                                            for(i=0;i<Productos.size();i++) {
-                                                if(Productos.get(i).getID() == idproducto) {
-                                                    ProductoSeleccionado = Productos.get(i);
-                                                    productoExist=true;
-                                                }
-                                            }
-                                            
-                                            if(productoExist){
-                                                System.out.println("Ingrese la cantidad que desea:");
-                                                int cantidad = leer.nextInt();
-                                                
-                                                
-                                                if(ProductoSeleccionado.getStock()>=cantidad && cantidad>0){
-                                                    ItemVenta item = new ItemVenta(ProductoSeleccionado, cantidad);
-                                                    ProductoSeleccionado.ReducirStock(cantidad);
-                                                    venta.AgregarItem(ProductoSeleccionado, cantidad);
-                                                    
-                                                    System.out.println("Producto añadido");
-                                                }else{
-                                                    System.out.println("Stock insuficiente. Intentelo de nuevo \n");
-                                                    error=true;
-                                                }
+                                           do{
+                                                System.out.println("Ingrese el id del producto:");
 
+                                                int idproducto = leer.nextInt();
+                                                
+                                                for(int i=0;i<Productos.size()&&!productoExist;i++) {
+                                                    if(Productos.get(i).getID() == idproducto) {
+                                                        ProductoSeleccionado = Productos.get(i);
+                                                        productoExist=true;
+                                                    }
+                                                }
+                                           }while(!productoExist);
+                                           
+                                            if(productoExist){
+                                                Existe=false;
+                                                do{
+                                                    System.out.println("Ingrese la cantidad que desea:");
+                                                    int cantidad = leer.nextInt();
+
+
+                                                    if(ProductoSeleccionado.getStock()>=cantidad && cantidad>0){
+                                                        ItemVenta item = new ItemVenta(ProductoSeleccionado, cantidad);
+                                                        ProductoSeleccionado.ReducirStock(cantidad);
+                                                        venta.AgregarItem(ProductoSeleccionado, cantidad);
+                                                        Existe=true;
+                                                        System.out.println("Producto añadido");
+                                                    }else{
+                                                        System.out.println("Stock insuficiente. Intentelo de nuevo \n");
+                                                        error=true;
+                                                    }
+                                                }while(!Existe);
                                             }else{
                                                 System.out.println("Producto no encontrado. Intentelo de nuevo \n");
                                                 error=true;
@@ -1494,7 +1502,7 @@ public class ProyectoPA {
                                     Venta.add(venta);
                                 }else
                                     if(!ExistCliente){
-                                        System.out.println("Cliente no encopntrado");
+                                        System.out.println("Cliente no encontrado");
                                     }if(!ExistVendedor){
                                         System.out.println("Empleado no encontrado");
                                     }
