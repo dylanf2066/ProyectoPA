@@ -54,6 +54,7 @@ public class Producto {
         }
         System.out.println("Precio: "+ Precio);
     }
+    }
     
     public void setID(int ID){
         this.ID = ID;
