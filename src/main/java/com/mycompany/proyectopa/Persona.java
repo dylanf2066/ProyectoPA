@@ -14,6 +14,10 @@ public class Persona {
     private String telefono;
     private String correo;
     
+    public Persona(){
+        
+    }
+    
     public Persona(int id, String nombre,String telefono, String correo){
         this.id = id;
         this.nombre = nombre;

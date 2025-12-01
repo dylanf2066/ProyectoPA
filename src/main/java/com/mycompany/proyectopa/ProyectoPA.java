@@ -49,10 +49,8 @@ public class ProyectoPA {
     }
     public static void MostrarMenuEmpleado(){
         System.out.println("Seleccione una opcion: ");
-        /*Funciones sin implementar aun
         System.out.println("1- Realizar Venta");
         System.out.println("2- Mostrar Ventas realizadas");
-        */
         System.out.println("3- Registrar Productos");
         System.out.println("4- Editar Productos");
         System.out.println("5- Registrar Clientes");
@@ -78,6 +76,37 @@ public class ProyectoPA {
            Vendedor.setPuesto("Vendedor");
            
            
+           Producto Producto1 = new Producto();
+           Producto1.setCaducidad(2025, 12, 1);
+           Producto1.setNombre("Papel");
+           Producto1.setCategoria("Higiene");
+           Producto1.setCodigoBarras(12345667);
+           Producto1.setDescripcion("ninguna");
+           Producto1.setID(1);
+           Producto1.setNormalPrecio(68.3);
+           Producto1.setStock(35);
+           Producto1.setIncOfer(2025, 11, 20);
+           Producto1.setFinOfer(2025, 12, 30);
+           Producto1.setActivOfer(true);
+           
+           Producto Producto2 = new Producto();
+           Producto2.setCaducidad(2025, 12, 1);
+           Producto2.setNombre("Paracetamol");
+           Producto2.setCategoria("pastilla");
+           Producto2.setCodigoBarras(566323);
+           Producto2.setDescripcion("ninguna");
+           Producto2.setID(2);
+           Producto2.setNormalPrecio(49.3);
+           Producto2.setStock(35);
+           Producto2.setActivOfer(false);
+           
+           
+           
+           
+           ItemVenta item1 = new ItemVenta(Producto1, 10);
+           ItemVenta item2 = new ItemVenta(Producto2, 2);
+           
+           
            
            
            ArrayList<Empleado> Empleados = new ArrayList<>();
@@ -85,9 +114,11 @@ public class ProyectoPA {
            ArrayList<Proveedor> Proveedores = new ArrayList<>();
            ArrayList<Producto> Productos = new ArrayList<>();
            ArrayList<Ventas> Venta= new ArrayList<>();
+           ArrayList <ItemVenta> itemsV = new ArrayList<>();
            
            Empleados.add(Vendedor);
-           
+           Productos.add(Producto1);
+           Productos.add(Producto2);
            
            String nameUser, password,nombre,correo,puesto,confpassword,catego,tel,direccion,empresa,descrip;
            int cont=0, indiceVendedor=0,indiceCliente=0,opc=0,id,opcInt=0,stock,ActOferta=0,indiceProveedor=0,indiceProd=0,indiceGlobalEmpleado=0,y,m,d;
@@ -1351,21 +1382,141 @@ public class ProyectoPA {
                     opc = leer.nextInt();
                     leer.nextLine();
                     switch(opc){
-                        /*
+                        
                         case 1:
-                            System.out.println("Realizar Venta");
+                            Ventas venta = new Ventas();
+                            double total = 0;
+                            Cliente c = new Cliente();
                             
+                                    
+                            if(!Productos.isEmpty() && !Empleados.isEmpty() && !Clientes.isEmpty() ){
+                                System.out.println("Realizar Venta");
+
+                                System.out.println("Ingrese ID del cliente");
+                                int IdCliente = leer.nextInt();
+
+                                System.out.println("Ingrese ID del Vendedor");
+                                int IdVendedor = leer.nextInt();
+
+                                int i=0;
+                                boolean ExistCliente=false;
+                                ExistVendedor=false;
+                                Cliente clienteEncontrado = null;
+                                Empleado empleadoEncontrado = null;
+
+                                do{
+                                    if(IdCliente==Clientes.get(i).getId()){
+                                        ExistCliente=true;
+                                        clienteEncontrado=Clientes.get(i);
+                                    }else{
+                                        i++;
+                                    }
+                                }while(IdCliente!=Clientes.get(i).getId() && i<Clientes.size());
+                                
+                                i=0;
+                               
+                                do{
+                                        if(IdVendedor==Empleados.get(i).getId()){
+                                            ExistVendedor=true;
+                                            empleadoEncontrado = Empleados.get(i);
+                                        }else{
+                                            i++;
+                                        }
+                                } while(IdVendedor!=Empleados.get(i).getId() && i<Empleados.size());
+                                
+                                
+                                if(ExistCliente==true && ExistVendedor==true){
+                                    id = Venta.size()+1;
+                                    venta.setID(id);
+                                    venta.setCliente(clienteEncontrado);
+                                    venta.setEmpleado(empleadoEncontrado);
+                                    
+                                    do{
+
+                                    Producto ProductoSeleccionado = new Producto(); 
+                                   
+                                    boolean error;
+                                        do{
+                                            error=false;
+                                            System.out.println("\n Productos Disponibles:");
+                                            
+                                            for(Producto p : Productos) {
+                                                System.out.println(p.getID() + ". " + p.getNombre() +" - $" + p.getNormalPrecio() + " Stock: " + p.getStock());
+                                            }
+                                            
+                                           
+                                            System.out.println("Ingrese el id del producto:");
+
+                                            int idproducto = leer.nextInt();
+                                            boolean productoExist=false;
+                                            for(i=0;i<Productos.size();i++) {
+                                                if(Productos.get(i).getID() == idproducto) {
+                                                    ProductoSeleccionado = Productos.get(i);
+                                                    productoExist=true;
+                                                }
+                                            }
+                                            
+                                            if(productoExist){
+                                                System.out.println("Ingrese la cantidad que desea:");
+                                                int cantidad = leer.nextInt();
+                                                
+                                                
+                                                if(ProductoSeleccionado.getStock()>=cantidad && cantidad>0){
+                                                    ItemVenta item = new ItemVenta(ProductoSeleccionado, cantidad);
+                                                    ProductoSeleccionado.ReducirStock(cantidad);
+                                                    venta.AgregarItem(ProductoSeleccionado, cantidad);
+                                                    
+                                                    System.out.println("Producto añadido");
+                                                }else{
+                                                    System.out.println("Stock insuficiente. Intentelo de nuevo \n");
+                                                    error=true;
+                                                }
+
+                                            }else{
+                                                System.out.println("Producto no encontrado. Intentelo de nuevo \n");
+                                                error=true;
+                                            }
+                                            
+                                        }while(error);
+                                        
+                                        System.out.println("Añadir otro? 1- si  2-no");
+                                        opc = leer.nextInt();
+                                    }while(opc!=2);
+                                    
+                                    total=venta.CalcularTotal();
+                                    clienteEncontrado.setTotalC(clienteEncontrado.getTotalC()+total);
+                                    System.out.println("Total a pagar: $"+total);
+                                    if(total>0)
+                                        System.out.println("Ingrese su pago: ");
+                                        venta.setPago(leer.nextDouble());
+                                    
+                                    venta.MostrarResumen();
+                                    Venta.add(venta);
+                                }else
+                                    if(!ExistCliente){
+                                        System.out.println("Cliente no encopntrado");
+                                    }if(!ExistVendedor){
+                                        System.out.println("Empleado no encontrado");
+                                    }
+                                
+                                
+                            }else
+                                System.out.println("Datos insuficientes");
                             break;   
+   
+                            
+                            
+                            
                         case 2:
                             System.out.println("Mostrar Ventas realizadas");
                                 if(!Venta.isEmpty()){
-                                    for(Ventas v:Venta){
-                                       v.MostrarResumen();
+                                    for(Ventas vent:Venta){
+                                       vent.MostrarResumen();
                                     }
                                 }else
                                     System.out.println("No se ha registrado ninguna venta");
                             break;   
-                        */
+                        
                         case 3:
                             if(Proveedores.isEmpty()){
                                 System.out.println("Se necesitan Proveedores Para Registrar Productos");

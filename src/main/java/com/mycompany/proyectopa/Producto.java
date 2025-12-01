@@ -41,6 +41,7 @@ public class Producto {
         System.out.println(ID +" : "+ Nombre);
         System.out.println("Codigo: "+CodigoBarras);
         System.out.println("Caducidad: " + Caducidad);
+        if((InicioOferta!=null) && (InicioOferta.isAfter(LocalDate.now())) && (FinOferta!=null)&&(FinOferta.isBefore(LocalDate.now())) ){
         System.out.println("Descripcion: "+Descripcion);
         System.out.println("Precio: "+Precio);
         System.out.println("Cantidad en Almacen: "+Stock);
@@ -49,7 +50,9 @@ public class Producto {
             System.out.println("Precio de oferta"+PrecioOferta);
             System.out.println("Inicio de oferta: "+InicioOferta);
             System.out.println("Fin de oferta: "+FinOferta);
+            System.out.println("Precio: "+ PrecioOferta );
         }
+        System.out.println("Precio: "+ Precio);
     }
     
     public void setID(int ID){
@@ -124,6 +127,8 @@ public class Producto {
     public long getCodigoBarras(){
         return CodigoBarras;
     }
+    
+    
     public void setProveedor(Proveedor p){
         this.Provee=p;
     }
