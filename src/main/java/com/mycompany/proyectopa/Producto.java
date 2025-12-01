@@ -21,7 +21,7 @@ public class Producto {
     private String Categoria;
     private long CodigoBarras;//
     private boolean Activ;//
-    
+    private Proveedor Provee;
     
     
     public void ReducirStock(int cantidad){
@@ -38,10 +38,16 @@ public class Producto {
     
     public void MostrarInfoProd(){
         System.out.println("PRODUCTO");
-        System.out.println(ID +". "+ Nombre);
-        System.out.println("Codigó: "+CodigoBarras);
+        System.out.println(ID +" : "+ Nombre);
+        System.out.println("Codigo: "+CodigoBarras);
         System.out.println("Caducidad: " + Caducidad);
         if((InicioOferta!=null) && (InicioOferta.isAfter(LocalDate.now())) && (FinOferta!=null)&&(FinOferta.isBefore(LocalDate.now())) ){
+        System.out.println("Descripcion: "+Descripcion);
+        System.out.println("Precio: "+Precio);
+        System.out.println("Cantidad en Almacen: "+Stock);
+        System.out.println("Proveedor Asignado: "+Provee.getNombre());
+        if(Activ){
+            System.out.println("Precio de oferta"+PrecioOferta);
             System.out.println("Inicio de oferta: "+InicioOferta);
             System.out.println("Fin de oferta: "+FinOferta);
             System.out.println("Precio: "+ PrecioOferta );
@@ -123,4 +129,10 @@ public class Producto {
     }
     
     
+    public void setProveedor(Proveedor p){
+        this.Provee=p;
+    }
+    public Proveedor getProveedor(){
+        return this.Provee;
+    }
 }
