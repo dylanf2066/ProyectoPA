@@ -41,10 +41,12 @@ public class Producto {
         System.out.println(ID +". "+ Nombre);
         System.out.println("Codigó: "+CodigoBarras);
         System.out.println("Caducidad: " + Caducidad);
-        if(ActivarOferta()){
+        if((InicioOferta!=null) && (InicioOferta.isAfter(LocalDate.now())) && (FinOferta!=null)&&(FinOferta.isBefore(LocalDate.now())) ){
             System.out.println("Inicio de oferta: "+InicioOferta);
             System.out.println("Fin de oferta: "+FinOferta);
+            System.out.println("Precio: "+ PrecioOferta );
         }
+        System.out.println("Precio: "+ Precio);
     }
     
     public void setID(int ID){
@@ -119,4 +121,6 @@ public class Producto {
     public long getCodigoBarras(){
         return CodigoBarras;
     }
+    
+    
 }

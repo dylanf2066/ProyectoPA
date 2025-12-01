@@ -10,9 +10,11 @@ import java.time.*;
  */
 public class Cliente extends Persona{
     private String Direccion;
-    private double totalC;//diego lo cambio de double a entero
+    private double totalC=0;//total acumulado (todas las compras)
     private int descuentoDispo;
     private LocalDate  fechaR;
+    
+    public Cliente(){}
     
     public Cliente(int id, String nombre, String telefono, String correo){
         super(id,nombre,telefono,correo);
