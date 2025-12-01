@@ -69,13 +69,13 @@ public class ProyectoPA {
            Admin.setPassword("12345");
            Admin.setPuesto("Administrador");
            
-           
+           /*
            Empleado Vendedor = new Empleado(789,"Juanito","45612312","juanito@correo");
            Vendedor.setUsuario("JuanitoPerez");
            Vendedor.setPassword("contrasena");
            Vendedor.setPuesto("Vendedor");
-           
-           
+           */
+           /*
            Producto Producto1 = new Producto();
            Producto1.setCaducidad(2025, 12, 1);
            Producto1.setNombre("Papel");
@@ -105,7 +105,7 @@ public class ProyectoPA {
            
            ItemVenta item1 = new ItemVenta(Producto1, 10);
            ItemVenta item2 = new ItemVenta(Producto2, 2);
-           
+           */
            
            
            
@@ -116,9 +116,9 @@ public class ProyectoPA {
            ArrayList<Ventas> Venta= new ArrayList<>();
            ArrayList <ItemVenta> itemsV = new ArrayList<>();
            
-           Empleados.add(Vendedor);
-           Productos.add(Producto1);
-           Productos.add(Producto2);
+           //Empleados.add(Vendedor);
+           //Productos.add(Producto1);
+           //Productos.add(Producto2);
            
            String nameUser, password,nombre,correo,puesto,confpassword,catego,tel,direccion,empresa,descrip;
            int cont=0, indiceVendedor=0,indiceCliente=0,opc=0,id,opcInt=0,stock,ActOferta=0,indiceProveedor=0,indiceProd=0,indiceGlobalEmpleado=0,y,m,d;
@@ -138,20 +138,27 @@ public class ProyectoPA {
                 System.out.println("Introduzca su Password");
                 password = leer.nextLine();
             
-            if(Admin.getNombre().equals(nameUser)&&Admin.getContraseña().equals(password)){
-                LLamarAdmin=true;
+            if(Admin.getNombre().equals(nameUser)){
+                ExistNameUser=true;
+                if(Admin.getContraseña().equals(password)){
+                    LLamarAdmin=true;
+                    ExistPasswordUser=true;
+                }
             }else{
                 //realizar busqueda dentro de los empleados
                 cont=0;
                 ExistVendedor=false;
                 while(cont<Empleados.size()&&!ExistVendedor){
-                    if(Empleados.get(cont).getUsuario().equals(nameUser) && Empleados.get(cont).getContraseña().equals(password)){
+                    if(Empleados.get(cont).getUsuario().equals(nameUser)){
                         ExistNameUser=true;
-                        ExistPasswordUser=true;
-                        indiceGlobalEmpleado=cont;
+                        if(Empleados.get(cont).getContraseña().equals(password)){
+                            ExistPasswordUser=true;
+                            indiceGlobalEmpleado=cont;
+                        }
                     }
                     cont++;
                 }
+            }
                 if(!ExistNameUser){
                     System.out.println("Nombre de usuario incorrecto");
                 }else if(ExistNameUser&&!ExistPasswordUser){
@@ -159,7 +166,7 @@ public class ProyectoPA {
                 }else if(ExistNameUser&&ExistPasswordUser){
                     LLamarVendedor=true;
                 }
-            }
+            
             
             if(LLamarAdmin){
                 do{
@@ -1108,6 +1115,8 @@ public class ProyectoPA {
                                 if(!ExistProveedor){
                                     System.out.println("ID no encontrado");
                                 }
+                            }else{
+                                System.out.println("No hay Proveedores Registrados");
                             }
                             break;
                         case 13:
@@ -2106,6 +2115,8 @@ public class ProyectoPA {
                                 if(!Productos.isEmpty()){
                                     for(Producto producto:Productos)
                                         producto.MostrarInfoProd();
+                                }else{
+                                    System.out.println("No hay productos Registrados");
                                 }
                             break;
                         case 8:
@@ -2124,12 +2135,7 @@ public class ProyectoPA {
                                 }
                                 if(ExistID){
                                     System.out.println("Datos del proveedor: ");
-                                    System.out.println("Nombre:"+Proveedores.get(indiceProveedor).getNombre());
-                                    System.out.println("Telefono: "+Proveedores.get(indiceProveedor).getTelefono());
-                                    System.out.println("Correo: "+Proveedores.get(indiceProveedor).getCorreo());
-                                    System.out.println("Nombre de la empresa: "+Proveedores.get(indiceProveedor).getNombreEmpresa());
-                                    System.out.println("Ingrese la direccion: "+Proveedores.get(indiceProveedor).getDireccion());
-                                    System.out.println("Tipo de Producto: "+Proveedores.get(indiceProveedor).getTipoProducto());
+                                    Proveedores.get(indiceProveedor).MostrarInfo();
                                     System.out.println("Productos que Surte: ");
                                     Proveedores.get(indiceProveedor).getProductos();
                                    
@@ -2138,6 +2144,8 @@ public class ProyectoPA {
                                     System.out.println("ID no registrado");
                                 }
                                 
+                            }else{
+                                System.out.println("No hay Proveedores Registrados");
                             }
                             
                             break;

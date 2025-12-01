@@ -54,5 +54,10 @@ public class Persona {
     public String getCorreo(){
         return correo;
     }
+    public void MostrarInfo(){
+        System.out.println("Nombre: "+nombre);
+        System.out.println("Telefono: "+telefono);
+        System.out.println("Correo: "+correo);
+    }
 }
 

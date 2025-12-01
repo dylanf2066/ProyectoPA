@@ -51,4 +51,10 @@ public class Cliente extends Persona{
     public int getDescuento(){
         return descuentoDispo;
     }
+    @Override
+    public void MostrarInfo(){
+        super.MostrarInfo();
+        System.out.println("Direccion: "+Direccion);
+        System.out.println("Fecha de Registro: "+fechaR);
+    }
 }

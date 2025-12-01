@@ -61,4 +61,11 @@ public class Proveedor extends Persona{
     public ArrayList<Producto> getLista(){
         return Productos;
     }
+    @Override
+    public void MostrarInfo(){
+        super.MostrarInfo();
+        System.out.println("Empresa: "+nomEmpresa);
+        System.out.println("Direccion: "+direccion);
+        System.out.println("Tipo de Productos: "+tipoProducto);
+    }
 }

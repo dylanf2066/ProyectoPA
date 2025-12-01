@@ -36,4 +36,10 @@ public class Empleado extends Persona{
     public String getPuesto(){
         return puesto;
     }
+    @Override
+    public void MostrarInfo(){
+        super.MostrarInfo();
+        System.out.println("Usuario: "+usuario);
+        System.out.println("Puesto: "+puesto);
+    }
 }
