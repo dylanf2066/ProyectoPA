@@ -111,8 +111,8 @@ public class Ventas {
     }
     
     
-    public void AgregarItem(Producto producto, int cantidad){
-        ItemVenta item = new ItemVenta(producto, cantidad);
+    public void AgregarItem(ItemVenta item){
+
         items.add(item);
     }
             

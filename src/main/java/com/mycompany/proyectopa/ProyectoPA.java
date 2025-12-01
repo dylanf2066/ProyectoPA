@@ -1472,7 +1472,7 @@ public class ProyectoPA {
                                                     if(ProductoSeleccionado.getStock()>=cantidad && cantidad>0){
                                                         ItemVenta item = new ItemVenta(ProductoSeleccionado, cantidad);
                                                         ProductoSeleccionado.ReducirStock(cantidad);
-                                                        venta.AgregarItem(ProductoSeleccionado, cantidad);
+                                                        venta.AgregarItem(item);
                                                         Existe=true;
                                                         System.out.println("Producto añadido");
                                                     }else{
