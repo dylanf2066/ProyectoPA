@@ -228,11 +228,15 @@ public class ProyectoPA {
                                         }
                                     }while(Existe);
                                     //que un correo no se repita
-                                    do{
+                                    do{ 
+                                        Existe=false;
                                         System.out.println("Ingrese el nombre de Usuario");
                                         nameUser = leer.nextLine();
-                                        if(!nameUser.equals("Admin")){
-                                            Existe=false;
+                                        if(nameUser.equals("Admin")){
+                                            System.out.println("Usuario Invalido");
+                                            Existe=true;
+                                        }else{
+                                            
                                             for(int i=0;i<Empleados.size()&&!Existe;i++){
                                                 if(Empleados.get(i).getUsuario().equals(nameUser)){
                                                     Existe=true;
