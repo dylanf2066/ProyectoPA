@@ -178,7 +178,8 @@ public class ProyectoPA {
                         case 1:
                             System.out.println("Registrar Empleados");
                             do{
-                                id = IDEmpleado+1;
+                                IDEmpleado+=1;
+                                id = IDEmpleado;
                                 //leer.nextLine();
                                 ExistID=false;
                                 for(int i=0;i<Empleados.size()&&!ExistID;i++){
@@ -455,8 +456,8 @@ public class ProyectoPA {
                             }else{
                                 do{
                                     System.out.println("Registrar Productos");
-
-                                    id =IDProducto+1;
+                                    IDProducto+=1;
+                                    id =IDProducto;
 
 
                                         Producto Articulo = new Producto();
@@ -629,7 +630,7 @@ public class ProyectoPA {
                                             Existe=false;
                                             System.out.println("Ingrese el ID del Proveedor de este Producto: ");
                                             id=leer.nextInt();
-                                            leer.nextInt();
+                                            leer.nextLine();
                                             for(int i=0;i<Proveedores.size()&&!Existe;i++){
                                                 if(Proveedores.get(i).getId()==id){
                                                     Existe=true;
@@ -772,8 +773,8 @@ public class ProyectoPA {
                                                     if(y>0&&(m>=1&&m<=12)){
                                                         if(d>=1&&d<=YearMonth.of(y, m).lengthOfMonth()){
                                                             LocalDate fecha = LocalDate.of(y, m, d);
-                                                            if(Productos.get(indiceVendedor).getIncOfer().isBefore(fecha)){
-                                                                Productos.get(indiceVendedor).setFinOfer(y, m, d);
+                                                            if(Productos.get(indiceProd).getIncOfer().isBefore(fecha)){
+                                                                Productos.get(indiceProd).setFinOfer(y, m, d);
                                                                 System.out.println("Operacion Exitosa!");
                                                                 Existe=true;
                                                             }else{
@@ -927,7 +928,8 @@ public class ProyectoPA {
                         case 9:
                             do{
                                 System.out.println("Registrar Proveedores");
-                                id = IDProveedor+1;
+                                IDProveedor+=1;
+                                id = IDProveedor;
                                 System.out.println("Ingrese el nombre: ");
                                 nombre = leer.nextLine();
                                 System.out.println("Ingresa el nombre de la empresa:");
@@ -1069,7 +1071,7 @@ public class ProyectoPA {
                                                     leer.nextLine();
                                                     correo = leer.nextLine();
                                                     for(int i=0;i<Proveedores.size()&&!Existe;i++){
-                                                        if(Proveedores.get(i).equals(correo)){
+                                                        if(Proveedores.get(i).getCorreo().equals(correo)){
                                                             Existe=true;
                                                         }
                                                     }
@@ -1208,7 +1210,8 @@ public class ProyectoPA {
                         case 14:
                             do{
                                 System.out.println("Registrar Clientes");
-                                id = IDCliente+1;
+                                IDCliente+=IDCliente+1;
+                                id = IDCliente;
                                 System.out.println("Ingresa el Nombre: ");
                                 nombre = leer.nextLine();
                                 do{
@@ -1329,7 +1332,7 @@ public class ProyectoPA {
                                                         Clientes.get(indiceCliente).setCorreo(correo);
                                                         System.out.println("Modificacion Exitosa!");
                                                     }
-                                                }while(Existe=false);
+                                                }while(Existe==false);
                                                 break;
                                             case 3:
                                                 do{
@@ -1354,7 +1357,7 @@ public class ProyectoPA {
                                                         Clientes.get(indiceCliente).setTelefono(tel);
                                                         System.out.println("Modificacion Exitosa!");
                                                     }
-                                                }while(Existe=false);
+                                                }while(Existe==false);
                                                 break;
                                             case 4:
                                                 do{
@@ -1479,7 +1482,7 @@ public class ProyectoPA {
                             if(!Productos.isEmpty() && !Empleados.isEmpty() && !Clientes.isEmpty() ){
                                 System.out.println("Realizar Venta");
 
-                                int IdCliente, IdVendedor;
+                                int IdCliente=0, IdVendedor=0;
 
                                 
 
@@ -1493,6 +1496,7 @@ public class ProyectoPA {
                                     
                                     System.out.println("Ingrese ID del cliente");
                                     IdCliente = leer.nextInt();
+                                    leer.nextLine();
                                     for(int j=0;j<Clientes.size()&&!ExistCliente;j++){
                                         if(IdCliente==Clientes.get(j).getId()){
                                             ExistCliente=true;
@@ -1507,7 +1511,8 @@ public class ProyectoPA {
                                 do{
                                     System.out.println("Ingrese ID del Vendedor");
                                     IdVendedor = leer.nextInt();
-                                    for(int i=0;i<Empleados.size()&&!ExistCliente;i++){
+                                    leer.nextLine();
+                                    for(int i=0;i<Empleados.size()&&!ExistVendedor;i++){
                                         if(IdVendedor==Empleados.get(i).getId()){
                                             ExistVendedor=true;
                                             empleadoEncontrado = Empleados.get(i);
@@ -1517,7 +1522,8 @@ public class ProyectoPA {
                                 
                                 
                                 if(ExistCliente==true && ExistVendedor==true){
-                                    id = IDVenta+1;
+                                    IDVenta+=1;
+                                    id = IDVenta;
                                     venta.setID(id);
                                     venta.setCliente(clienteEncontrado);
                                     venta.setEmpleado(empleadoEncontrado);
@@ -1540,6 +1546,7 @@ public class ProyectoPA {
                                                 System.out.println("Ingrese el id del producto:");
 
                                                 int idproducto = leer.nextInt();
+                                                leer.nextLine();
                                                 
                                                 for(int i=0;i<Productos.size()&&!productoExist;i++) {
                                                     if(Productos.get(i).getID() == idproducto) {
@@ -1590,7 +1597,7 @@ public class ProyectoPA {
                                             }
                                         }while(error);
                                         
-                                    }while(opc!=2);
+                                    }while(opcInt!=2);
                                     
                                     total=venta.CalcularTotal();
                                     clienteEncontrado.setTotalC(clienteEncontrado.getTotalC()+total);
@@ -1606,7 +1613,7 @@ public class ProyectoPA {
                                 }else
                                     if(!ExistCliente){
                                         System.out.println("Cliente no encontrado");
-                                    }if(!ExistVendedor){
+                                    }else if(!ExistVendedor){
                                         System.out.println("Empleado no encontrado");
                                     }
                                 
@@ -1634,8 +1641,8 @@ public class ProyectoPA {
                             }else{
                                 do{
                                     System.out.println("Registrar Productos");
-
-                                    id = IDProducto+1;
+                                    IDProducto+=1;
+                                    id = IDProducto;
 
 
                                         Producto Articulo = new Producto();
@@ -1808,7 +1815,7 @@ public class ProyectoPA {
                                             Existe=false;
                                             System.out.println("Ingrese el ID del Proveedor de este Producto: ");
                                             id=leer.nextInt();
-                                            leer.nextInt();
+                                            leer.nextLine();
                                             for(int i=0;i<Proveedores.size()&&!Existe;i++){
                                                 if(Proveedores.get(i).getId()==id){
                                                     Existe=true;
@@ -2063,7 +2070,8 @@ public class ProyectoPA {
                             break;
                         case 5:
                             System.out.println("Registrar Clientes");
-                            id = IDCliente+1;
+                            IDCliente+=1;
+                            id = IDCliente;
                             System.out.println("Ingresa el Nombre: ");
                             nombre = leer.nextLine();
                             do{
@@ -2167,7 +2175,7 @@ public class ProyectoPA {
                                                         Clientes.get(indiceCliente).setCorreo(correo);
                                                         System.out.println("Modificacion Exitosa!");
                                                     }
-                                                }while(Existe=false);
+                                                }while(Existe==false);
                                                 break;
                                             case 3:
                                                 do{
@@ -2191,7 +2199,7 @@ public class ProyectoPA {
                                                         Clientes.get(indiceCliente).setTelefono(tel);
                                                         System.out.println("Modificacion Exitosa!");
                                                     }
-                                                }while(Existe=false);
+                                                }while(Existe==false);
                                                 break;
                                             case 4:
                                                 do{

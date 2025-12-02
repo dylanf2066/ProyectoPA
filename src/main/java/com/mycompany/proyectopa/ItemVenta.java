@@ -42,8 +42,10 @@ public class ItemVenta {
     
     
     public double CalcularSubTotal(){
-        
-         if((producto.getIncOfer()!=null)&&(producto.getIncOfer().isAfter(LocalDate.now())) && (producto.getFinOfer()!=null)&&(producto.getFinOfer().isBefore(LocalDate.now())) )
+            //fecha inicio != vacio     &&  inicio oferta esta despues de el dia de hoy    &&  fin de la oferta != vacio  && fin de la oferta esta despues de el dia de hoy
+         //(producto.getIncOfer()!=null)&&(producto.getIncOfer().isAfter(LocalDate.now())) &&(producto.getFinOfer()!=null)&&(producto.getFinOfer().isBefore(LocalDate.now()))
+            if((producto.getIncOfer()!=null)&&(producto.getIncOfer().isBefore(LocalDate.now()) || producto.getIncOfer().isEqual(LocalDate.now())) 
+                && (producto.getFinOfer()!=null)&&(producto.getFinOfer().isAfter(LocalDate.now()) || producto.getFinOfer().isEqual(LocalDate.now())))
             subtotal = producto.getOfertaPrecio()*cantidad; 
         else
            subtotal = producto.getNormalPrecio()*cantidad;

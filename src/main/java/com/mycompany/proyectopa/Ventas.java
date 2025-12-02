@@ -62,7 +62,7 @@ public class Ventas {
             System.out.println(producto.getID()+". "+producto.getNombre());
             System.out.println("Cantidad: "+item.getCantidad());
             
-            if((producto.getIncOfer()!=null)&&(producto.getIncOfer().isAfter(LocalDate.now())) && (producto.getFinOfer()!=null)&&(producto.getFinOfer().isBefore(LocalDate.now())) )
+            if((producto.getIncOfer()!=null)&&(producto.getIncOfer().isBefore(LocalDate.now())||producto.getIncOfer().isEqual(LocalDate.now())) && (producto.getFinOfer()!=null)&&(producto.getFinOfer().isAfter(LocalDate.now())||producto.getFinOfer().isEqual(LocalDate.now())) )
                 System.out.println("Precio unitario: $"+producto.getOfertaPrecio());
             else
                 System.out.println("Precio unitario: $"+producto.getNormalPrecio());
