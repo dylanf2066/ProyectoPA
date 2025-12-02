@@ -55,6 +55,7 @@ public class Persona {
         return correo;
     }
     public void MostrarInfo(){
+        System.out.println("ID: "+id);
         System.out.println("Nombre: "+nombre);
         System.out.println("Telefono: "+telefono);
         System.out.println("Correo: "+correo);
