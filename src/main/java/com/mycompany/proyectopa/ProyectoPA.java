@@ -1596,19 +1596,9 @@ public class ProyectoPA {
                                     clienteEncontrado.setTotalC(clienteEncontrado.getTotalC()+total);
                                     System.out.println("Total a pagar: $"+total);
                                     if(total>0){
-                                        double pago;
-                                        do{
-                                            System.out.println("Ingrese su pago: ");
-                                            pago = leer.nextDouble();
-                                            if(pago>total){
-                                                System.out.println("Su cambio es: "+venta.CalcularCambio());
-                                                venta.setPago(pago);
-                                            }else if(pago==total){
-                                                venta.setPago(pago);
-                                            }else if(pago<total){
-                                                System.out.println("Transaccion no valida\n Hoy no fio, mañana si");
-                                            }
-                                        }while(pago<total);
+                                        double pago=leer.nextDouble();
+                                        venta.setPago(pago);
+                                        
                                     } 
                                     
                                     venta.MostrarResumen();
