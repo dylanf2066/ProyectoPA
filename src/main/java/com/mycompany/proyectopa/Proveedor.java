@@ -12,7 +12,7 @@ public class Proveedor extends Persona{
     private String  nomEmpresa;
     private String  direccion;
     private String  tipoProducto;
-    private ArrayList<Producto> Productos;
+    private ArrayList<Producto> Productos =new ArrayList<>();
     
     public Proveedor(int id, String nombre, String telefono, String correo){
         super(id,nombre,telefono,correo);

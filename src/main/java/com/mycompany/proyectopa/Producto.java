@@ -22,6 +22,7 @@ public class Producto {
     private long CodigoBarras;//
     private boolean Activ;//
     private Proveedor Provee;
+    private Producto producto;
     
     
     public void ReducirStock(int cantidad){
@@ -41,11 +42,12 @@ public class Producto {
         System.out.println(ID +" : "+ Nombre);
         System.out.println("Codigo: "+CodigoBarras);
         System.out.println("Caducidad: " + Caducidad);
-        if((InicioOferta!=null) && (InicioOferta.isAfter(LocalDate.now())) && (FinOferta!=null)&&(FinOferta.isBefore(LocalDate.now())) ){
-            System.out.println("Descripcion: "+Descripcion);
-            System.out.println("Precio: "+Precio);
-            System.out.println("Cantidad en Almacen: "+Stock);
-            System.out.println("Proveedor Asignado: "+Provee.getNombre());
+        System.out.println("Descripcion: "+Descripcion);
+        System.out.println("Precio: "+Precio);
+        System.out.println("Cantidad en Almacen: "+Stock);
+        System.out.println("Proveedor Asignado: "+Provee.getNombre());
+        
+        if((producto.getIncOfer()!=null)&&(producto.getIncOfer().isBefore(LocalDate.now())||producto.getIncOfer().isEqual(LocalDate.now())) && (producto.getFinOfer()!=null)&&(producto.getFinOfer().isAfter(LocalDate.now())||producto.getFinOfer().isEqual(LocalDate.now())) ){
             if(Activ){
                 System.out.println("Precio de oferta"+PrecioOferta);
                 System.out.println("Inicio de oferta: "+InicioOferta);

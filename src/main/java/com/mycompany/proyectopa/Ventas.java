@@ -100,13 +100,14 @@ public class Ventas {
     public int Descuentos(){
                 //en base a 2000 pesos en adelante
         if(cliente.getTotalC()>=2000 && cliente.getTotalC()<7000){
+            
             DescuentoAplicado = 5;
         }else if(cliente.getTotalC()>=7000 && cliente.getTotalC()<20000){
             DescuentoAplicado = 10;
         }else if(cliente.getTotalC()>=20000){
             DescuentoAplicado = 15;
         }
-        
+        cliente.setDecuento(DescuentoAplicado);
         return DescuentoAplicado;
     }
     

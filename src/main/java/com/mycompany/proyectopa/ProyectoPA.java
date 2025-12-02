@@ -1198,9 +1198,12 @@ public class ProyectoPA {
                                     if(Proveedores.get(i).getId()==id){
                                         ExistProveedor=true;
                                         Proveedores.get(i).MostrarInfo();
-                                        
-                                        System.out.println("Productos que Surte: ");
-                                        Proveedores.get(indiceProveedor).getProductos();
+                                        if(!Proveedores.get(i).getLista().isEmpty()){
+                                            System.out.println("Productos que Surte: ");
+                                            Proveedores.get(indiceProveedor).getProductos();
+                                        }else{
+                                            System.out.println("sin productos asignados");
+                                        }
                                     }
                                 }
                             }else{
@@ -2261,8 +2264,12 @@ public class ProyectoPA {
                                 if(ExistID){
                                     System.out.println("Datos del proveedor: ");
                                     Proveedores.get(indiceProveedor).MostrarInfo();
-                                    System.out.println("Productos que Surte: ");
-                                    Proveedores.get(indiceProveedor).getProductos();
+                                    if(!Proveedores.get(indiceProveedor).getLista().isEmpty()){
+                                            System.out.println("Productos que Surte: ");
+                                            Proveedores.get(indiceProveedor).getProductos();
+                                        }else{
+                                            System.out.println("sin productos asignados");
+                                        }
                                    
                                     
                                 }else{
