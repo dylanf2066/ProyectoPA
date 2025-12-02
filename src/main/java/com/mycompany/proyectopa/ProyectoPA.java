@@ -179,7 +179,8 @@ public class ProyectoPA {
                             System.out.println("Registrar Empleados");
                             do{
                                 IDEmpleado+=1;
-                                id = IDEmpleado+1;
+                                id = IDEmpleado;
+                                System.out.println("ID: "+id);
                                 //leer.nextLine();
                                 ExistID=false;
                                 for(int i=0;i<Empleados.size()&&!ExistID;i++){
@@ -230,14 +231,16 @@ public class ProyectoPA {
                                     do{
                                         System.out.println("Ingrese el nombre de Usuario");
                                         nameUser = leer.nextLine();
-                                        Existe=false;
-                                        for(int i=0;i<Empleados.size()&&!Existe;i++){
-                                            if(Empleados.get(i).getUsuario().equals(nameUser)){
-                                                Existe=true;
+                                        if(!nameUser.equals("Admin")){
+                                            Existe=false;
+                                            for(int i=0;i<Empleados.size()&&!Existe;i++){
+                                                if(Empleados.get(i).getUsuario().equals(nameUser)){
+                                                    Existe=true;
+                                                }
                                             }
-                                        }
-                                        if(Existe){
-                                            System.out.println("Nombre de usuario ya resgitrado\n Utilice otro");
+                                            if(Existe){
+                                                System.out.println("Nombre de usuario ya resgitrado\n Utilice otro");
+                                            }
                                         }
                                     }while(Existe);
                                     //que un usuario no se repita
@@ -458,7 +461,7 @@ public class ProyectoPA {
                                     System.out.println("Registrar Productos");
 
                                     id =IDProducto+1;
-
+                                    System.out.println("ID: "+id);
 
                                         Producto Articulo = new Producto();
                                         Articulo.setID(id);
@@ -929,6 +932,7 @@ public class ProyectoPA {
                             do{
                                 System.out.println("Registrar Proveedores");
                                 id = IDProveedor+1;
+                                System.out.println("ID: "+id);
                                 System.out.println("Ingrese el nombre: ");
                                 nombre = leer.nextLine();
                                 System.out.println("Ingresa el nombre de la empresa:");
@@ -1214,6 +1218,7 @@ public class ProyectoPA {
                                 System.out.println("Registrar Clientes");
                                 IDCliente+=IDCliente+1;
                                 id = IDCliente;
+                                System.out.println("ID: "+id);
                                 System.out.println("Ingresa el Nombre: ");
                                 nombre = leer.nextLine();
                                 do{
@@ -1642,6 +1647,7 @@ public class ProyectoPA {
                                     System.out.println("Registrar Productos");
                                     IDProducto+=1;
                                     id = IDProducto;
+                                    System.out.println("ID: "+id);
 
 
                                         Producto Articulo = new Producto();
@@ -2071,6 +2077,7 @@ public class ProyectoPA {
                             System.out.println("Registrar Clientes");
                             IDCliente+=1;
                             id = IDCliente;
+                            System.out.println("ID: "+id);
                             System.out.println("Ingresa el Nombre: ");
                             nombre = leer.nextLine();
                             do{
