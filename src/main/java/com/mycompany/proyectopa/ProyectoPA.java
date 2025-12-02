@@ -506,7 +506,7 @@ public class ProyectoPA {
                                             do{
                                                 System.out.println("Ingrese el precio para su oferta:");
                                                 precOFER=leer.nextDouble();
-                                                if(precOFER<=0){
+                                                if(precOFER<=0||precOFER>Articulo.getNormalPrecio()){
                                                     System.out.println("Precio Invalido intente nuevamente:");
                                                 }else{
                                                     Articulo.setOfertaPrecio(precOFER);
@@ -727,7 +727,7 @@ public class ProyectoPA {
                                                 do{
                                                     System.out.println("Ingrese el precio para la oferta: ");
                                                     precOFER = leer.nextDouble();
-                                                    if(precOFER>0){
+                                                    if(precOFER>0||precOFER<Productos.get(indiceProd).getNormalPrecio()){
                                                         Productos.get(indiceProd).setOfertaPrecio(precOFER);
                                                         System.out.println("Operacion Exitosa!");
                                                     }else{
@@ -1512,7 +1512,7 @@ public class ProyectoPA {
                                 do{
                                     System.out.println("Ingrese ID del Vendedor");
                                     IdVendedor = leer.nextInt();
-                                    for(int i=0;i<Empleados.size()&&!ExistCliente;i++){
+                                    for(int i=0;i<Empleados.size()&&!ExistVendedor;i++){
                                         if(IdVendedor==Empleados.get(i).getId()){
                                             ExistVendedor=true;
                                             empleadoEncontrado = Empleados.get(i);
@@ -1690,7 +1690,7 @@ public class ProyectoPA {
                                             do{
                                                 System.out.println("Ingrese el precio para su oferta:");
                                                 precOFER=leer.nextDouble();
-                                                if(precOFER<=0){
+                                                if(precOFER<=0||precOFER>Articulo.getNormalPrecio()){
                                                     System.out.println("Precio Invalido intente nuevamente:");
                                                 }else{
                                                     Articulo.setOfertaPrecio(precOFER);
@@ -1898,7 +1898,7 @@ public class ProyectoPA {
                                                 do{
                                                     System.out.println("Ingrese el precio para la oferta: ");
                                                     precOFER = leer.nextDouble();
-                                                    if(precOFER>0){
+                                                    if(precOFER>0||precOFER<Productos.get(indiceProd).getNormalPrecio()){
                                                         Productos.get(indiceProd).setOfertaPrecio(precOFER);
                                                         System.out.println("Operacion Exitosa!");
                                                     }else{
