@@ -178,8 +178,8 @@ public class ProyectoPA {
                         case 1:
                             System.out.println("Registrar Empleados");
                             do{
-                                IDEmpleado+=1;
-                                id = IDEmpleado;
+                                IDEmpleado+=1
+                                id = IDEmpleado+1;
                                 //leer.nextLine();
                                 ExistID=false;
                                 for(int i=0;i<Empleados.size()&&!ExistID;i++){
@@ -456,8 +456,8 @@ public class ProyectoPA {
                             }else{
                                 do{
                                     System.out.println("Registrar Productos");
-                                    IDProducto+=1;
-                                    id =IDProducto;
+
+                                    id =IDProducto+1;
 
 
                                         Producto Articulo = new Producto();
@@ -928,8 +928,7 @@ public class ProyectoPA {
                         case 9:
                             do{
                                 System.out.println("Registrar Proveedores");
-                                IDProveedor+=1;
-                                id = IDProveedor;
+                                id = IDProveedor+1;
                                 System.out.println("Ingrese el nombre: ");
                                 nombre = leer.nextLine();
                                 System.out.println("Ingresa el nombre de la empresa:");
@@ -1499,7 +1498,6 @@ public class ProyectoPA {
                                     
                                     System.out.println("Ingrese ID del cliente");
                                     IdCliente = leer.nextInt();
-                                    leer.nextLine();
                                     for(int j=0;j<Clientes.size()&&!ExistCliente;j++){
                                         if(IdCliente==Clientes.get(j).getId()){
                                             ExistCliente=true;
@@ -1514,8 +1512,7 @@ public class ProyectoPA {
                                 do{
                                     System.out.println("Ingrese ID del Vendedor");
                                     IdVendedor = leer.nextInt();
-                                    leer.nextLine();
-                                    for(int i=0;i<Empleados.size()&&!ExistVendedor;i++){
+                                    for(int i=0;i<Empleados.size()&&!ExistCliente;i++){
                                         if(IdVendedor==Empleados.get(i).getId()){
                                             ExistVendedor=true;
                                             empleadoEncontrado = Empleados.get(i);
@@ -1525,7 +1522,7 @@ public class ProyectoPA {
                                 
                                 
                                 if(ExistCliente==true && ExistVendedor==true){
-                                    IDVenta+=1;
+                                    IDVenta+=IDVenta+1;
                                     id = IDVenta;
                                     venta.setID(id);
                                     venta.setCliente(clienteEncontrado);
@@ -1549,7 +1546,6 @@ public class ProyectoPA {
                                                 System.out.println("Ingrese el id del producto:");
 
                                                 int idproducto = leer.nextInt();
-                                                leer.nextLine();
                                                 
                                                 for(int i=0;i<Productos.size()&&!productoExist;i++) {
                                                     if(Productos.get(i).getID() == idproducto) {
@@ -1600,7 +1596,7 @@ public class ProyectoPA {
                                             }
                                         }while(error);
                                         
-                                    }while(opcInt!=2);
+                                    }while(opc!=2);
                                     
                                     total=venta.CalcularTotal();
                                     clienteEncontrado.setTotalC(clienteEncontrado.getTotalC()+total);
@@ -1616,7 +1612,7 @@ public class ProyectoPA {
                                 }else
                                     if(!ExistCliente){
                                         System.out.println("Cliente no encontrado");
-                                    }else if(!ExistVendedor){
+                                    }if(!ExistVendedor){
                                         System.out.println("Empleado no encontrado");
                                     }
                                 
