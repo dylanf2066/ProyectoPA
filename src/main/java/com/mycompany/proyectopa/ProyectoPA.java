@@ -178,7 +178,7 @@ public class ProyectoPA {
                         case 1:
                             System.out.println("Registrar Empleados");
                             do{
-                                IDEmpleado+=1
+                                IDEmpleado+=1;
                                 id = IDEmpleado+1;
                                 //leer.nextLine();
                                 ExistID=false;
